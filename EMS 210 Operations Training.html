@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMS 210 Operations Training - Hazmat Awareness</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+        
+        .course-code {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .progress-container {
+            background: rgba(255,255,255,0.2);
+            height: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #28a745, #20c997);
+            height: 100%;
+            width: 12.5%;
+            transition: width 0.5s ease;
+            border-radius: 5px;
+        }
+        
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .nav-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .nav-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            border-color: #007bff;
+        }
+        
+        .nav-card.active {
+            border-color: #28a745;
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(255, 255, 255, 0.95));
+        }
+        
+        .nav-card.completed::after {
+            content: '✓';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #28a745;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .nav-card h3 {
+            color: #007bff;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .nav-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .content-area {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 20px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+            display: none;
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        .content-area.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .lesson-content h2 {
+            color: #007bff;
+            border-bottom: 4px solid #007bff;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+        }
+        
+        .lesson-content h3 {
+            color: #0056b3;
+            margin: 30px 0 20px 0;
+            font-size: 1.5rem;
+        }
+        
+        .lesson-content h4 {
+            color: #007bff;
+            margin: 25px 0 15px 0;
+            font-size: 1.2rem;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .info-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 6px solid #007bff;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-left-width: 8px;
+        }
+        
+        .info-card h4 {
+            color: #007bff;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .protection-levels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .protection-level {
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .protection-level:hover {
+            transform: scale(1.05);
+        }
+        
+        .level-a { background: linear-gradient(135deg, #dc3545, #c82333); }
+        .level-b { background: linear-gradient(135deg, #fd7e14, #e55a00); }
+        .level-c { background: linear-gradient(135deg, #ffc107, #e0a800); color: #333; }
+        .level-d { background: linear-gradient(135deg, #28a745, #218838); }
+        
+        .classification-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .classification-table th {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+        
+        .classification-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .classification-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .classification-table tr:hover {
+            background: #e7f3ff;
+            transform: scale(1.01);
+            transition: all 0.2s ease;
+        }
+        
+        .zones-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .zones-diagram {
+            position: relative;
+            width: 350px;
+            height: 350px;
+        }
+        
+        .zone {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .zone:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+        
+        .hot-zone {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #dc3545, #c82333);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            font-size: 0.9rem;
+        }
+        
+        .warm-zone {
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(255, 193, 7, 0.9), rgba(224, 168, 0, 0.9));
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            color: #333;
+            font-size: 0.95rem;
+        }
+        
+        .cold-zone {
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, rgba(40, 167, 69, 0.7), rgba(33, 136, 56, 0.7));
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            font-size: 1rem;
+        }
+        
+        .quiz-container {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .question {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 15px;
+            border-left: 6px solid #007bff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .question h4 {
+            color: #007bff;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .options {
+            list-style: none;
+        }
+        
+        .options li {
+            margin: 12px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .options li:hover {
+            background: #e9ecef;
+            transform: translateX(10px);
+        }
+        
+        .options li.correct {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            border-color: #28a745;
+            color: #155724;
+        }
+        
+        .options li.incorrect {
+            background: linear-gradient(135deg, #f8d7da, #f1b0b7);
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 15px 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #28a745, #218838);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107, #e0a800);
+            color: #333;
+        }
+        
+        .alert {
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 6px solid;
+            font-weight: 500;
+        }
+        
+        .alert-info {
+            background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+            border-left-color: #17a2b8;
+            color: #0c5460;
+        }
+        
+        .alert-warning {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border-left-color: #ffc107;
+            color: #856404;
+        }
+        
+        .alert-danger {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            border-left-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .alert-success {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            border-left-color: #28a745;
+            color: #155724;
+        }
+        
+        .symptoms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .symptom-card {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #e9ecef;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .symptom-card:hover {
+            border-color: #007bff;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .emergency-contacts {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 15px 40px rgba(220, 53, 69, 0.3);
+        }
+        
+        .emergency-contacts h3 {
+            color: white;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .contact-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .contact-card h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        
+        .completion-certificate {
+            background: linear-gradient(135deg, #ffd700, #ffed4a);
+            color: #333;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 30px 0;
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+            border: 3px solid #e6c200;
+        }
+        
+        .certificate-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #8b6914;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .course-code {
+                font-size: 1.2rem;
+            }
+            
+            .nav-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .zones-diagram {
+                width: 280px;
+                height: 280px;
+            }
+            
+            .cold-zone { width: 260px; height: 260px; }
+            .warm-zone { width: 180px; height: 180px; }
+            .hot-zone { width: 100px; height: 100px; }
+            
+            .content-area {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="course-code">EMS 210 OPERATIONS TRAINING</div>
+            <h1>Hazardous Materials Awareness</h1>
+            <p>Essential knowledge for first responders and emergency personnel</p>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="nav-grid">
+            <div class="nav-card active" data-section="overview">
+                <h3>📋 Course Overview</h3>
+                <p>Introduction, definitions, and learning objectives</p>
+            </div>
+            <div class="nav-card" data-section="identification">
+                <h3>🔍 Hazmat Identification</h3>
+                <p>Formal and informal identification methods</p>
+            </div>
+            <div class="nav-card" data-section="classification">
+                <h3>⚠️ DOT Classifications</h3>
+                <p>Nine classes of hazardous materials</p>
+            </div>
+            <div class="nav-card" data-section="protection">
+                <h3>🛡️ Personal Protection</h3>
+                <p>PPE levels and respiratory protection</p>
+            </div>
+            <div class="nav-card" data-section="health">
+                <h3>⚕️ Health Hazards</h3>
+                <p>Routes of exposure and symptoms</p>
+            </div>
+            <div class="nav-card" data-section="response">
+                <h3>🚑 Emergency Response</h3>
+                <p>Scene approach and safety zones</p>
+            </div>
+            <div class="nav-card" data-section="decontamination">
+                <h3>🧼 Decontamination</h3>
+                <p>Patient management and cleanup</p>
+            </div>
+            <div class="nav-card" data-section="quiz">
+                <h3>📝 Final Assessment</h3>
+                <p>Test your knowledge and get certificate</p>
+            </div>
+        </div>
+
+        <!-- Course Overview -->
+        <div class="content-area active" id="overview">
+            <div class="lesson-content">
+                <h2>Course Overview: Hazardous Materials Awareness</h2>
+                
+                <div class="alert alert-info">
+                    <strong>Learning Objective:</strong> By the end of this course, you will be able to recognize hazardous materials incidents, identify substances using various methods, understand health risks, and implement appropriate response procedures at the awareness level.
+                </div>
+                
+                <h3>What are Hazardous Materials?</h3>
+                <p><strong>Hazardous materials (hazmat)</strong> are any items or agents that have the potential to cause harm to humans, animals, or the environment, either through direct contact or through interaction with other factors.</p>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Vehicle Crashes</h4>
+                        <p>Transportation accidents involving trucks, rail cars, or other vehicles carrying hazardous materials.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Storage Mishaps</h4>
+                        <p>Accidents at manufacturing facilities, warehouses, or storage areas containing chemicals.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Illicit Operations</h4>
+                        <p>Clandestine drug manufacturing labs that create toxic chemical hazards.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Terrorism Acts</h4>
+                        <p>Intentional release of hazardous substances as weapons of mass destruction.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Chemical Mixing</h4>
+                        <p>Accidental combination of household chemicals, pesticides, or industrial products.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Natural Disasters</h4>
+                        <p>Secondary hazmat releases caused by earthquakes, floods, or severe weather.</p>
+                    </div>
+                </div>
+
+                <h3>Key Regulations</h3>
+                <h4>Superfund Amendments and Reauthorization Act (1986)</h4>
+                <p>Established requirements for emergency planning and reporting of hazmat-related incidents. Facility operators must notify:</p>
+                <ul>
+                    <li>Local fire department</li>
+                    <li>Local emergency managers</li>
+                    <li>State emergency response commission</li>
+                </ul>
+
+                <h4>HAZWOPER Standards (OSHA)</h4>
+                <p>At the awareness level, responders must be able to:</p>
+                <ul>
+                    <li>Evaluate and identify hazmat/WMD incidents</li>
+                    <li>Call for appropriate resources</li>
+                    <li>Identify substances using placards and reference materials</li>
+                    <li>Gather information from the Emergency Response Guidebook</li>
+                    <li>Maintain safe perimeters around incidents</li>
+                </ul>
+
+                <div class="alert alert-warning">
+                    <strong>Important:</strong> NFPA 470 addresses competencies for EMS personnel at hazmat scenes, including scene analysis, ALS delivery, treatment planning, and post-decontamination care.
+                </div>
+
+                <button class="btn" onclick="nextSection('identification')">Continue to Identification Methods →</button>
+            </div>
+        </div>
+
+        <!-- Hazmat Identification -->
+        <div class="content-area" id="identification">
+            <div class="lesson-content">
+                <h2>Hazmat Identification Methods</h2>
+                
+                <h3>Informal Product Identification</h3>
+                <p>Initial assessment methods that can be performed from a safe distance:</p>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Visual Inspection</h4>
+                        <p>Use binoculars to observe from safe distance. Look for vapor clouds, unusual containers, leakage, and environmental clues.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Verbal Reports</h4>
+                        <p>Information from witnesses, facility personnel, or other first responders about the incident.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Occupancy Type</h4>
+                        <p>Consider facility type: chemical plant, gas station, laboratory, manufacturing, or agricultural facility.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Incident Location</h4>
+                        <p>Geographic location and specific area within a facility can indicate likely hazards present.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Vehicle Types</h4>
+                        <p>Tank trucks, rail cars, cargo containers, and specialized transport vehicles carrying hazmat.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Container Characteristics</h4>
+                        <p>Size, shape, material, and markings on containers provide clues about contents and hazards.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Environmental Clues</h4>
+                        <p>Dead vegetation, unusual odors, vapor clouds, discolored surfaces, or dead animals.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Human Symptoms</h4>
+                        <p>Signs and symptoms of exposed individuals can indicate types of chemical hazards present.</p>
+                    </div>
+                </div>
+
+                <h3>Formal Product Identification Systems</h3>
+                <p>Six major labeling systems used historically for hazmat identification:</p>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>DOT System</h4>
+                        <p>Department of Transportation - Primary system for hazmat transportation with placards and UN/NA numbers.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>NFPA System</h4>
+                        <p>National Fire Protection Association - Diamond-shaped labels showing fire, health, reactivity, and special hazards.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>OSHA HazCom</h4>
+                        <p>Occupational Safety and Health Administration Hazard Communication Standard for workplace safety.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>GHS System</h4>
+                        <p>Globally Harmonized System of Classification and Labeling of Chemicals - International standard.</p>
+                    </div>
+                </div>
+
+                <h3>Key Information Sources</h3>
+                <h4>Placards and Shipping Papers</h4>
+                <ul>
+                    <li>Display United Nations/North American (UN/NA) identification numbers</li>
+                    <li>Located near vehicle operator (truck cab, ship bridge, aircraft cockpit)</li>
+                    <li>Multiple chemical agents may share the same UN/NA number</li>
+                    <li>Always refer to specific chemical name when possible, not just number</li>
+                </ul>
+
+                <h4>Safety Data Sheets (SDS)</h4>
+                <ul>
+                    <li>Required by OSHA for each chemical produced, stored, or used in United States</li>
+                    <li>Supplied by manufacturer with detailed safety information</li>
+                    <li>Contains handling, storage, and emergency response information</li>
+                    <li>Should not be used as sole source of chemical information</li>
+                    <li>Must consult medical direction, poison control, or appropriate authorities</li>
+                </ul>
+
+                <button class="btn" onclick="nextSection('classification')">Learn DOT Classifications →</button>
+            </div>
+        </div>
+
+        <!-- DOT Classifications -->
+        <div class="content-area" id="classification">
+            <div class="lesson-content">
+                <h2>DOT Hazard Classifications</h2>
+                
+                <div class="alert alert-warning">
+                    <strong>Remember:</strong> The DOT system organizes hazardous materials into nine classes based on their primary hazard during transportation. Each class may have multiple divisions.
+                </div>
+
+                <table class="classification-table">
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>Hazard Type</th>
+                            <th>Divisions</th>
+                            <th>Examples</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1</strong></td>
+                            <td>Explosives</td>
+                            <td>1.1 - 1.6</td>
+                            <td>Dynamite, fireworks, ammunition, blasting agents</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2</strong></td>
+                            <td>Gases</td>
+                            <td>2.1, 2.2, 2.3</td>
+                            <td>2.1: Propane | 2.2: Oxygen | 2.3: Chlorine</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3</strong></td>
+                            <td>Flammable Liquids</td>
+                            <td>-</td>
+                            <td>Gasoline, diesel fuel, alcohol, acetone</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4</strong></td>
+                            <td>Flammable Solids</td>
+                            <td>4.1, 4.2, 4.3</td>
+                            <td>4.1: Matches | 4.2: Phosphorus | 4.3: Sodium</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5</strong></td>
+                            <td>Oxidizers</td>
+                            <td>5.1, 5.2</td>
+                            <td>5.1: Bleach | 5.2: Organic peroxides</td>
+                        </tr>
+                        <tr>
+                            <td><strong>6</strong></td>
+                            <td>Toxic/Infectious</td>
+                            <td>6.1, 6.2</td>
+                            <td>6.1: Pesticides | 6.2: Medical waste</td>
+                        </tr>
+                        <tr>
+                            <td><strong>7</strong></td>
+                            <td>Radioactive</td>
+                            <td>-</td>
