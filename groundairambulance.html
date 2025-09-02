@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMS Operations Training</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            background: #e74c3c;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #ddd;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #27ae60;
+            border-radius: 10px;
+            width: 6.67%;
+            transition: width 0.3s;
+        }
+        .slide {
+            display: none;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .slide.active {
+            display: block;
+        }
+        .slide h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .info-box, .warning-box, .scenario-box {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 5px solid;
+        }
+        .info-box {
+            background: #e8f5e8;
+            border-color: #27ae60;
+        }
+        .warning-box {
+            background: #fdf2e9;
+            border-color: #e67e22;
+        }
+        .scenario-box {
+            background: #eaf5ff;
+            border-color: #3498db;
+        }
+        .knowledge-check {
+            background: white;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .quiz-options {
+            list-style: none;
+            margin: 10px 0;
+        }
+        .quiz-options li {
+            margin: 8px 0;
+        }
+        .quiz-options label {
+            cursor: pointer;
+            padding: 5px;
+        }
+        .nav-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        .nav-btn:hover {
+            background: #2980b9;
+        }
+        .nav-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .external-link {
+            display: inline-block;
+            color: #3498db;
+            text-decoration: none;
+            border: 2px solid #3498db;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-weight: bold;
+        }
+        .external-link:hover {
+            background: #3498db;
+            color: white;
+        }
+        .quiz-feedback {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: none;
+        }
+        .correct {
+            background: #d4edda;
+            color: #155724;
+        }
+        .incorrect {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>EMS Operations Training</h1>
+            <p>Ground and Air Ambulance Operations</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div id="progressText">Slide 1 of 15</div>
+
+        <!-- Slide 1 -->
+        <div class="slide active" id="slide1">
+            <h2>Module Introduction</h2>
+            <p>Welcome to the EMS Operations training module focusing on Ground and Air Ambulance Operations.</p>
+            
+            <div class="info-box">
+                <h4>Learning Objectives</h4>
+                <ul>
+                    <li>Describe ambulance standards evolution from 1968 to current NFPA guidelines</li>
+                    <li>Demonstrate proper ambulance equipment checking procedures</li>
+                    <li>Apply safe driving principles and emergency vehicle operation laws</li>
+                    <li>Explain proper ambulance positioning and scene safety procedures</li>
+                    <li>Identify criteria for air medical transport activation</li>
+                    <li>Establish and manage helicopter landing zones safely</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>Safety Notice</h4>
+                <p>An estimated 6,500 vehicle crashes involving ambulances occur annually. This training emphasizes that no emergency justifies creating additional victims through unsafe practices.</p>
+            </div>
+
+            <h3>Professional Resources</h3>
+            <a href="https://www.ems.gov/" target="_blank" class="external-link">NHTSA Office of EMS</a>
+            <a href="https://naemsp.org/" target="_blank" class="external-link">NAEMSP Guidelines</a>
+            <a href="https://www.aams.org/" target="_blank" class="external-link">Air Medical Safety</a>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide" id="slide2">
+            <h2>Ambulance Standards Evolution</h2>
+            
+            <h3>Historical Development</h3>
+            <p>The evolution of ambulance standards reflects the professionalization of emergency medical services over nearly six decades.</p>
+            
+            <div class="info-box">
+                <h4>1968 NAS-NRC Standards</h4>
+                <p>The National Academy of Sciences–National Research Council established the first comprehensive ambulance design standards covering:</p>
+                <ul>
+                    <li>Size and shape specifications for patient compartments</li>
+                    <li>Color schemes and emergency markings for visibility</li>
+                    <li>Electrical systems requirements for medical equipment</li>
+                    <li>Emergency equipment standards and configurations</li>
+                </ul>
+            </div>
+
+            <h3>Federal Standards Era</h3>
+            <p>The original NAS-NRC recommendations eventually led to development of federal specifications that many states adopted. These became collectively known as "the federal standards" and provided the basis for uniformity in design of ambulance vehicles throughout the United States.</p>
+
+            <h3>Current National Standards</h3>
+            <p>Federal standards were replaced by other national standards of design and performance for ambulance vehicles in October 2016:</p>
+            <ul>
+                <li><strong>NFPA 1917:</strong> Standard for Automotive Ambulances</li>
+                <li><strong>GVS v.1.0:</strong> Ground Vehicle Standard for Ambulances (Commission on Accreditation of Ambulance Services)</li>
+            </ul>
+
+            <div class="scenario-box">
+                <h4>Future Integration</h4>
+                <p>In 2023, NFPA 1917 became part of NFPA 1900, Standard for Aircraft Rescue and Firefighting Vehicles, Automotive Fire Apparatus, Wildland Fire Apparatus, and Automotive Ambulances.</p>
+            </div>
+
+            <div class="knowledge-check">
+                <h4>Knowledge Check #1</h4>
+                <p><strong>Which organization first established comprehensive ambulance design standards in 1968?</strong></p>
+                <ul class="quiz-options">
+                    <li><input type="radio" name="q1" value="a"><label>A) Department of Transportation</label></li>
+                    <li><input type="radio" name="q1" value="b"><label>B) National Fire Protection Association</label></li>
+                    <li><input type="radio" name="q1" value="c"><label>C) National Academy of Sciences–National Research Council</label></li>
+                    <li><input type="radio" name="q1" value="d"><label>D) Federal Emergency Management Agency</label></li>
+                </ul>
+                <button onclick="checkAnswer('q1', 'c', 'Correct! The NAS-NRC established the first comprehensive ambulance standards in 1968, covering design, equipment, and operational requirements.')" class="nav-btn">Check Answer</button>
+                <div class="quiz-feedback" id="q1-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide" id="slide3">
+            <h2>Daily Ambulance Inspections</h2>
+            
+            <p>Completing equipment and supply checklists at the beginning of every work shift is essential for safety, patient care, and risk management. This systematic approach helps ensure proper handling and safekeeping of scheduled medications and verifies equipment functionality.</p>
+            
+            <div class="info-box">
+                <h4>Essential Inspection Components</h4>
+                <ul>
+                    <li><strong>Vehicle Systems:</strong> Check fluid levels, tire pressure and condition, all lighting systems, brake function</li>
+                    <li><strong>Medical Equipment:</strong> Verify inventory, test functionality, check battery levels on electronic devices</li>
+                    <li><strong>Communication Systems:</strong> Test radio functionality, GPS systems, cellular backup communications</li>
+                    <li><strong>Safety Equipment:</strong> Inspect reflective gear, traffic control devices, emergency flares</li>
+                    <li><strong>Documentation:</strong> Ensure adequate supply of PCR forms, medication logs, insurance verification materials</li>
+                </ul>
+            </div>
+
+            <h3>Equipment Maintenance Requirements</h3>
+            <p>Some equipment requires routine maintenance, testing, and cleaning beyond daily checks. Follow your agency guidelines and procedures for checking vehicles, equipment, and supplies.</p>
+
+            <div class="warning-box">
+                <h4>Critical Safety Items</h4>
+                <p>Special attention must be paid to:</p>
+                <ul>
+                    <li>Proper handling and safekeeping of scheduled medications</li>
+                    <li>Equipment requiring routine maintenance, testing, and cleaning</li>
+                    <li>Documentation of any deficiencies discovered during inspection</li>
+                </ul>
+            </div>
+
+            <div class="knowledge-check">
+                <h4>Knowledge Check #2</h4>
+                <p><strong>What is the primary purpose of completing equipment checklists at the beginning of each shift?</strong></p>
+                <ul class="quiz-options">
+                    <li><input type="radio" name="q2" value="a"><label>A) To comply with insurance requirements</label></li>
+                    <li><input type="radio" name="q2" value="b"><label>B) To ensure safety, patient care, and risk management</label></li>
+                    <li><input type="radio" name="q2" value="c"><label>C) To identify equipment that needs replacement</label></li>
+                    <li><input type="radio" name="q2" value="d"><label>D) To meet federal transportation regulations</label></li>
+                </ul>
+                <button onclick="checkAnswer('q2', 'b', 'Correct! Daily equipment checklists are essential for ensuring safety, optimal patient care, and proper risk management throughout the operational shift.')" class="nav-btn">Check Answer</button>
+                <div class="quiz-feedback" id="q2-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide" id="slide4">
+            <h2>Emergency Vehicle Operation Laws</h2>
+            
+            <h3>Due Regard Standard</h3>
+            <p>Most states allow privileges for drivers of emergency vehicles, but must take into consideration safety of all people using roads. This principle is fundamental to emergency vehicle operation.</p>
+            
+            <div class="warning-box">
+                <h4>Legal Responsibility</h4>
+                <p>"Due regard for the safety of all others" carries legal responsibility:</p>
+                <ul>
+                    <li>Includes maintaining a safe following distance to avoid rear-end collisions</li>
+                    <li>Paramedic and EMS agency can incur liability if damage, injury, or death results from failure to observe this principle</li>
+                    <li>Emergency vehicle operators must be aware of local and state laws and regulations that cover emergency vehicle operation</li>
+                </ul>
+            </div>
+
+            <div class="scenario-box">
+                <h4>Intersection Safety Protocol</h4>
+                <p>The most common place where emergency vehicles are involved in collisions is intersections where an ambulance proceeds against a red light. Important safety measures:</p>
+                <ul>
+                    <li>Driver of emergency vehicle must stop at all controlled intersections</li>
+                    <li>Driver should try to make eye contact with all motorists before proceeding through intersection</li>
+                    <li>Alternate the siren's "yelp" and "wail" modes for better audibility</li>
+                    <li>Similar strategies should be employed when proceeding against flow of traffic</li>
+                    <li>Speed limited to less than 20 miles per hour when proceeding against traffic</li>
+                </ul>
+            </div>
+
+            <div class="knowledge-check">
+                <h4>Knowledge Check #3</h4>
+                <p><strong>What must emergency vehicle drivers do at controlled intersections when proceeding against a red light?</strong></p>
+                <ul class="quiz-options">
+                    <li><input type="radio" name="q3" value="a"><label>A) Slow to 15 mph and sound the air horn continuously</label></li>
+                    <li><input type="radio" name="q3" value="b"><label>B) Come to a complete stop and make eye contact with all motorists</label></li>
+                    <li><input type="radio" name="q3" value="c"><label>C) Proceed immediately with lights and sirens activated</label></li>
+                    <li><input type="radio" name="q3" value="d"><label>D) Wait for traffic to completely clear the intersection</label></li>
+                </ul>
+                <button onclick="checkAnswer('q3', 'b', 'Correct! Emergency vehicles must come to a complete stop at controlled intersections and drivers should make eye contact with all motorists before proceeding.')" class="nav-btn">Check Answer</button>
+                <div class="quiz-feedback" id="q3-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide" id="slide5">
+            <h2>Environmental Conditions and Driver Safety</h2>
+            
+            <h3>Environmental Hazards</h3>
+            <p>Environmental conditions include poor road and weather conditions that significantly impact safe ambulance operations. Operators must proceed at a safe speed—one that is appropriate for road and weather conditions.</p>
+            
+            <div class="warning-box">
+                <h4>Critical Weather Considerations</h4>
+                <p>Remember: dry roads and clear weather do not guarantee a safe response. Environmental factors requiring special attention include:</p>
+                <ul>
+                    <li>Rain and wet road conditions</li>
+                    <li>Snow and ice creating reduced traction</li>
+                    <li>Fog reducing visibility</li>
+                    <li>High winds affecting vehicle stability</li>
+                    <li>Night operations with reduced visibility</li>
+                </ul>
+            </div>
+
+            <h3>Distracted Driving Prevention</h3>
+            <p>Distracted driving is a factor in many crashes for both drivers of emergency vehicles and civilian drivers. In the United States, more than 3,100 people were killed and approximately 424,000 were injured in crashes involving a distracted driver in 2019.</p>
+
+            <div class="info-box">
+                <h4>Driver Responsibility Protocol</h4>
+                <ul>
+                    <li>Whenever possible, driver of emergency vehicle should refrain from operating any device that could lead to visual, manual, or cognitive distractions</li>
+                    <li>Driver should rely on other crew members to perform functions like radio communications, GPS navigation, and equipment management</li>
+                    <li>Maintain exclusive focus on safe vehicle operation and traffic conditions</li>
+                </ul>
+            </div>
+
+            <div class="knowledge-check">
+                <h4>Knowledge Check #4</h4>
+                <p><strong>According to 2019 data, approximately how many people were injured in crashes involving distracted drivers?</strong></p>
+                <ul class="quiz-options">
+                    <li><input type="radio" name="q4" value="a"><label>A) 180,000</label></li>
+                    <li><input type="radio" name="q4" value="b"><label>B) 275,000</label></li>
+                    <li><input type="radio" name="q4" value="c"><label>C) 424,000</label></li>
+                    <li><input type="radio" name="q4" value="d"><label>D) 550,000</label></li>
+                </ul>
+                <button onclick="checkAnswer('q4', 'c', 'Correct! In 2019, approximately 424,000 people were injured in crashes involving distracted drivers.')" class="nav-btn">Check Answer</button>
+                <div class="quiz-feedback" id="q4-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="slide" id="slide7">
+            <h2>Appropriate Use of Escorts</h2>
+            
+            <h3>Escort Safety Considerations</h3>
+            <p>Police escorts during an emergency response can sometimes be dangerous. Understanding when and how to use escorts properly is essential for safe operations.</p>
+            
+            <div class="warning-box">
+                <h4>Escort Risks</h4>
+                <ul>
+                    <li><strong>Collision Risk:</strong> Collisions can occur as a result of confusion between multiple emergency vehicles</li>
+                    <li><strong>Limited Application:</strong> Use escorts only when responding to a scene in an unfamiliar area</li>
+                    <li><strong>Communication Issues:</strong> Multiple emergency vehicles can create radio frequency conflicts and operational confusion</li>
+                </ul>
+            </div>
+
+            <h3>Tiered Response System Alternative</h3>
+            <p>Modern EMS systems employ tiered response systems as a safer alternative to escort operations. These systems provide:</p>
+            
+            <div class="info-box">
+                <h4>Benefits of Tiered Response</h4>
+                <ul>
+                    <li>Safer emergency response coordination</li>
+                    <li>Proper resources and personnel are available during emergency</li>
+                    <li>Reduced confusion and improved scene management</li>
+                    <li>Better resource allocation and deployment strategies</li>
+                </ul>
+            </div>
+
+            <div class="knowledge-check">
+                <h4>Knowledge Check #5</h4>
+                <p><strong>When should police escorts be used during emergency responses?</strong></p>
+                <ul class="quiz-options">
+                    <li><input type="radio" name="q5" value="a"><label>A) For all Priority 1 emergency calls</label></li>
+                    <li><input type="radio" name="q5" value="b"><label>B) During rush hour traffic conditions</label></li>
+                    <li><input type="radio" name="q5" value="c"><label>C) Only when responding to scenes in unfamiliar areas</label></li>
+                    <li><input type="radio" name="q5" value="d"><label>D) When transporting critical trauma patients</label></li>
+                </ul>
+                <button onclick="checkAnswer('q5', 'c', 'Correct! Escorts should only be used when responding to scenes in unfamiliar areas due to safety risks.')" class="nav-btn">Check Answer</button>
+                <div class="quiz-feedback" id="q5-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Slide 8 -->
+        <div class="slide" id="slide8">
+            <h2>Parking at the Emergency Scene</h2>
+            
+            <h3>Scene Security Assessment</h3>
+            <p>Proper ambulance positioning at emergency scenes depends on whether law enforcement and fire service personnel have secured the scene.</p>
+            
+            <div class="scenario-box">
+                <h4>Secured Scene Positioning</h4>
+                <p><strong>If law enforcement and fire service personnel HAVE secured the scene:</strong></p>
+                <ul>
+                    <li>Position about 100 feet (30 m) past scene, on same side of road</li>
+                    <li>Position uphill (about 200 feet [60 m]), upwind when hazardous materials are present</li>
+                    <li>This positioning allows for safe patient loading and departure</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>Unsecured Scene Positioning</h4>
+                <p><strong>If law enforcement and fire service personnel have NOT secured the scene:</strong></p>
+                <ul>
+                    <li>Position diagonally about 50 feet (15 m) in front of scene in fend-off position</li>
+                    <li>Use the ambulance as a protective barrier for emergency responders</li>
+                    <li>This creates a safety zone for patient care operations</li>
+                </ul>
+            </div>
+
+            <h3>Additional Safety Precautions</h3>
+            <p>Regardless of scene security status, implement these safety measures:</p>
+            
+            <div class="info-box">
+                <h4>Universal Safety Measures</h4>
+                <ul>
+                    <li>Use emergency lighting when vehicle blocks traffic</li>
+                    <li>Consider using amber directional signals to direct traffic away from scene or hazards</li>
+                    <li>Use floodlights to illuminate scene and work area around ambulance</li>
+                    <li>Set parking brake and help guide vehicle when backing up</li>
+                    <li>Wear reflective gear at all times</li>
+                    <li>Consider possibility of collapsing structures, fires, explosive hazards, and downed electrical wires</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 9 -->
+        <div class="slide" id="slide9">
+            <h2>Safely Moving Patients Into and Out of Ambulances</h2>
+            
+            <h3>Pre-Transport Patient Preparation</h3>
+            <p>After initial stabilization at scene, patient must be packaged and safely placed in emergency vehicle for transport using systematic safety protocols.</p>
+            
+            <div class="info-box">
+                <h4>Essential Loading Procedures</h4>
+                <ul>
+                    <li><strong>Use safe lifting practices</strong> with proper body mechanics and adequate personnel</li>
+                    <li><strong>Ensure patient is positioned securely</strong> on stretcher with all restraints properly applied</li>
+                    <li><strong>Engage locking devices</strong> and verify all stretcher mechanisms are properly secured</li>
+                    <li><strong>Stow unnecessary equipment</strong> should be secured before transport begins</li>
+                </ul>
+            </div>
+
+            <h3>Transport Phase Monitoring</h3>
+            <p>During transport, the patient should be closely monitored for any changes in status. Continuous assessment is critical for optimal patient outcomes.</p>
+
+            <h3>Hospital Arrival Procedures</h3>
+            <p>Proper unloading procedures ensure patient safety during the critical transition to hospital care.</p>
+            
+            <div class="warning-box">
+                <h4>Hospital Arrival Safety Protocol</h4>
+                <ul>
+                    <li><strong>Complete Stop Required:</strong> On arrival at the hospital, the ambulance should come to a full stop</li>
+                    <li><strong>Remove Personal Restraints:</strong> Personal restraints can be removed only after complete stop</li>
+                    <li><strong>Secure Equipment:</strong> Secure all patient care equipment before stretcher is released from locking device</li>
+                    <li><strong>Safe Lifting Techniques:</strong> Using safe lifting techniques, stretcher should be removed from ambulance</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 10 -->
+        <div class="slide" id="slide10">
+            <h2>Aeromedical Transport Overview</h2>
+            
+            <h3>Historical Foundation</h3>
+            <p>Like many other aspects of prehospital emergency care, air evacuation is rooted in military history. The development of civilian air medical services has revolutionized emergency care delivery.</p>
+            
+            <div class="info-box">
+                <h4>Current Air Medical Infrastructure</h4>
+                <p>More than 800 air medical service programs using fixed-wing aircraft and/or rotary-wing aircraft have been established throughout the United States, providing critical care transport capabilities.</p>
+            </div>
+
+            <h3>Types of Air Medical Services</h3>
+            <div class="scenario-box">
+                <h4>Aircraft Classifications</h4>
+                <ul>
+                    <li><strong>Helicopter Emergency Medical Services (HEMS):</strong> Rotary-wing aircraft for scene response and short-distance interfacility transfers</li>
+                    <li><strong>Fixed-Wing Air Ambulances:</strong> Long-distance transfers between medical facilities, often across states</li>
+                    <li><strong>Combination Services:</strong> Programs operating both helicopter and airplane capabilities for comprehensive coverage</li>
+                </ul>
+            </div>
+
+            <div class="knowledge-check">
+                <h4>Knowledge Check #6</h4>
+                <p><strong>How many air medical service programs using fixed-wing and/or rotary-wing aircraft operate in the United States?</strong></p>
+                <ul class="quiz-options">
+                    <li><input type="radio" name="q6" value="a"><label>A) More than 600</label></li>
+                    <li><input type="radio" name="q6" value="b"><label>B) More than 800</label></li>
+                    <li><input type="radio" name="q6" value="c"><label>C) More than 1,000</label></li>
+                    <li><input type="radio" name="q6" value="d"><label>D) More than 1,200</label></li>
+                </ul>
+                <button onclick="checkAnswer('q6', 'b', 'Correct! More than 800 air medical service programs provide critical care transport nationwide.')" class="nav-btn">Check Answer</button>
+                <div class="quiz-feedback" id="q6-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Slide 11 -->
+        <div class="slide" id="slide11">
+            <h2>Aeromedical Crew Members and Training</h2>
+            
+            <h3>Crew Composition</h3>
+            <p>Air medical staffing includes pilots and various health care professionals who undergo specialized training in flight physiology and advanced medical equipment and procedures.</p>
+            
+            <div class="info-box">
+                <h4>Staffing of Air Ambulances Includes</h4>
+                <ul>
+                    <li><strong>Pilot:</strong> Responsible for aircraft operation and flight safety decisions</li>
+                    <li><strong>Various health care professionals:</strong></li>
+                    <li>- Paramedics who have specialty certifications in critical care</li>
+                    <li>- Respiratory therapists for complex airway and ventilator management</li>
+                    <li>- Nurses with critical care and emergency specializations</li>
+                    <li>- Physicians for high-acuity patients requiring medical oversight</li>
+                </ul>
+            </div>
+
+            <h3>Specialized Training Requirements</h3>
+            <p>Crews undergo specialized training in flight physiology and advanced medical equipment and procedures. This training addresses the unique challenges of providing medical care in the aircraft environment.</p>
+
+            <div class="scenario-box">
+                <h4>Training Areas Include</h4>
+                <ul>
+                    <li>Flight physiology and altitude effects on patients and equipment</li>
+                    <li>Advanced medical equipment operation in aircraft environment</li>
+                    <li>Aircraft safety procedures and emergency protocols</li>
+                    <li>Critical care protocols specific to air medical transport</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 12 -->
+        <div class="slide" id="slide12">
+            <h2>Use of Aeromedical Services</h2>
+            
+            <h3>Activation Criteria</h3>
+            <p>Local EMS system develops criteria for requesting aeromedical service response. The decision should be supported by appropriate triage and evaluation of scene conditions and patient needs.</p>
+            
+            <div class="warning-box">
+                <h4>Consider Air Transport When the Situation Involves One or More of the Following</h4>
+                <ul>
+                    <li><strong>Time-Critical Interventions:</strong> Expedited transport to definitive care is required for time-sensitive interventions</li>
+                    <li><strong>Specialized Care Requirements:</strong> Critical care personnel and specialized equipment are needed to provide advanced care for the patient</li>
+                    <li><strong>Remote Location Access:</strong> Extraction from physically remote or inaccessible locations would seriously delay the patient's access and may limit timely access to needed care</li>
+                </ul>
+            </div>
+
+            <h3>Notification Process</h3>
+            <p>Most aeromedical transportation providers accept requests for medical services from physicians, EMS and fire service personnel, or other on-scene public service agency personnel. Local and state guidelines cover aeromedical activation procedures.</p>
+
+            <div class="info-box">
+                <h4>Medical Direction Consultation</h4>
+                <p>Paramedic should consult medical direction before requesting aeromedical services. When notified that aeromedical response may be needed, flight crews of some services prepare for flight and move to aircraft so that they are ready for immediate deployment.</p>
+            </div>
+        </div>
+
+        <!-- Slide 13 -->
+        <div class="slide" id="slide13">
+            <h2>Landing Site Preparation</h2>
+            
+            <h3>Ideal Landing Zone Requirements</h3>
+            <p>Proper landing zone preparation is critical for safe helicopter operations and requires adherence to specific dimensional and environmental criteria.</p>
+            
+            <div class="info-box">
+                <h4>Ideal Space Requirement for Helicopter LZ</h4>
+                <ul>
+                    <li><strong>Size:</strong> 100 by 100 feet (30 × 30 m) with no overhead wires or vertical structures that can hamper takeoff or landing</li>
+                    <li><strong>Slope:</strong> Relatively flat (less than 10° slope) for safe aircraft operations</li>
+                    <li><strong>Surface:</strong> Free of debris that can injure people or damage structures or helicopter</li>
+                    <li><strong>Clearance:</strong> Clear approaches free of obstacles that interfere with aircraft operations</li>
+                </ul>
+            </div>
+
+            <h3>Nighttime Landing Zone Operations</h3>
+            <p>If nighttime LZ is used, special lighting and safety considerations apply to ensure pilot visibility without creating hazardous conditions.</p>
+
+            <div class="warning-box">
+                <h4>Night Operations Safety Requirements</h4>
+                <ul>
+                    <li>Emergency vehicles with lighted bar lights should be situated at perimeters of LZ</li>
+                    <li>If white lights are used, should be directed down toward center of LZ as spotlights, because white lights directed toward the aircraft can temporarily blind the pilot</li>
+                    <li>Rescue personnel should never be used to identify the LZ</li>
+                    <li>Incendiary flares should not be used due to fire hazard</li>
+                    <li>Wet down dusty LZs to improve visibility during operations</li>
+                </ul>
+            </div>
+
+            <div class="knowledge-check">
+                <h4>Knowledge Check #7</h4>
+                <p><strong>What is the ideal helicopter landing zone size for daytime operations?</strong></p>
+                <ul class="quiz-options">
+                    <li><input type="radio" name="q7" value="a"><label>A) 75 × 75 feet</label></li>
+                    <li><input type="radio" name="q7" value="b"><label>B) 100 × 100 feet</label></li>
+                    <li><input type="radio" name="q7" value="c"><label>C) 125 × 125 feet</label></li>
+                    <li><input type="radio" name="q7" value="d"><label>D) 150 × 150 feet</label></li>
+                </ul>
+                <button onclick="checkAnswer('q7', 'b', 'Correct! 100 × 100 feet provides adequate safety margins for helicopter operations.')" class="nav-btn">Check Answer</button>
+                <div class="quiz-feedback" id="q7-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Slide 14 -->
+        <div class="slide" id="slide14">
+            <h2>Safety Precautions During Helicopter Operations</h2>
+            
+            <h3>Personnel Safety Zones</h3>
+            <p>Everyone should be clear of landing area during takeoffs and landings. A distance of 100 to 200 feet (30 to 60 m) is best for personnel safety.</p>
+            
+            <div class="warning-box">
+                <h4>Approach and Safety Restrictions</h4>
+                <ul>
+                    <li><strong>Never Allow Ground Personnel</strong> to approach the helicopter unless the pilot or flight crew asks them to do so</li>
+                    <li><strong>Allow Only Necessary Personnel</strong> to help load or unload patients</li>
+                    <li><strong>Secure Any Loose Objects</strong> or clothing that could be affected by rotor wash</li>
+                    <li><strong>Do Not Allow Smoking</strong> anywhere near the aircraft</li>
+                </ul>
+            </div>
+
+            <h3>Safe Approach Procedures</h3>
+            <p>When authorized to approach the helicopter, specific safety protocols must be strictly followed.</p>
+
+            <div class="info-box">
+                <h4>Helicopter Approach Protocol</h4>
+                <ul>
+                    <li>After the aircraft is parked, make eye contact with the pilot, move to the front, and wait for a signal from the pilot to approach</li>
+                    <li><strong>Approach the helicopter in a crouched position</strong> to avoid rotor hazards</li>
+                    <li><strong>Never approach the rear of the aircraft</strong> from any direction due to tail rotor dangers</li>
+                    <li><strong>Carry long objects horizontally</strong> and no higher than waist high to prevent rotor contact</li>
+                    <li><strong>Depart the helicopter</strong> from the same direction from which you approached</li>
+                </ul>
+            </div>
+
+            <div class="knowledge-check">
+                <h4>Knowledge Check #8</h4>
+                <p><strong>What is the recommended safe distance from helicopter operations during takeoffs and landings?</strong></p>
+                <ul class="quiz-options">
+                    <li><input type="radio" name="q8" value="a"><label>A) 50 to 75 feet</label></li>
+                    <li><input type="radio" name="q8" value="b"><label>B) 75 to 100 feet</label></li>
+                    <li><input type="radio" name="q8" value="c"><label>C) 100 to 200 feet</label></li>
+                    <li><input type="radio" name="q8" value="d"><label>D) 200 to 300 feet</label></li>
+                </ul>
+                <button onclick="checkAnswer('q8', 'c', 'Correct! A distance of 100 to 200 feet provides optimal safety during helicopter operations.')" class="nav-btn">Check Answer</button>
+                <div class="quiz-feedback" id="q8-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Continue with expanded slides 6-15 -->
+        <div class="slide" id="slide6">
+            <h2>Appropriate Use of Personal Restraints</h2>
+            
+            <h3>Universal Restraint Requirements</h3>
+            <p>Proper use of personal restraints is mandatory for all ambulance operations and is critical for preventing injuries during vehicle movement.</p>
+            
+            <div class="info-box">
+                <h4>Mandatory Restraint Rules</h4>
+                <ul>
+                    <li><strong>All operators/front-seat passengers</strong> must use seat belts when vehicle is in motion</li>
+                    <li><strong>Any patient on a stretcher</strong> must be secured at all times when vehicle is in motion or stretcher is being moved</li>
+                    <li><strong>All equipment in the ambulance</strong> must be secured to prevent projectiles during crashes</li>
+                    <li><strong>All personnel in the patient compartment</strong> must use seat belts when not attending to a patient and when the vehicle is in motion</li>
+                </ul>
+            </div>
+
+            <h3>Pediatric Patient Considerations</h3>
+            <p>Special protocols apply when transporting pediatric patients, balancing safety requirements with medical care needs.</p>
+
+            <div class="scenario-box">
+                <h4>Pediatric Transport Guidelines</h4>
+                <ul>
+                    <li>If the child does not require continuous or intensive medical monitoring or interventions, the patient should be appropriately secured with a size-appropriate child restraint</li>
+                    <li>If a child is critical and the recommended restraint cannot be achieved, the child should be secured to the cot headfirst with three horizontal restraints across the torso and one vertical restraint across each shoulder</li>
+                    <li>If a child must be transported but is not the patient, every effort should be made to transport the child in another vehicle with a child safety seat</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Continue pattern for remaining slides with comprehensive content -->
+
+        <!-- Slide 15 - Final Assessment -->
+        <div class="slide" id="slide15">
+            <h2>Final Assessment</h2>
+            
+            <div class="warning-box">
+                <h4>Assessment Instructions</h4>
+                <p>Complete this comprehensive assessment to demonstrate your mastery of Ground and Air Ambulance Operations. You need 80% (8/10 correct) to pass.</p>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>1. According to the textbook, approximately how many ambulance crashes occur annually?</strong></p>
+                <ul class="quiz-options">
+                    <li><input type="radio" name="final1" value="a"><label>A) 4,200</label></li>
+                    <li><input type="radio" name="final1" value="b"><label>B) 6,500</label></li>
+                    <li><input type="radio" name="final1" value="c"><label>C) 8,800</label></li>
+                    <li><input type="radio" name="final1" value="d"><label>D) 12,000</label></li>
+                </ul>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>2. The "due regard" standard requires emergency vehicle operators to:</strong></p>
+                <ul class="quiz-options">
+                    <li><input type="radio" name="final2" value="a"><label>A) Proceed with absolute right-of-way when using lights and sirens</label></li>
+                    <li><input type="radio" name="final2" value="b"><label>B) Exercise safety consideration for all persons even during emergencies</label></li>
+                    <li><input type="radio" name="final2" value="c"><label>C) Ignore traffic signals when responding to critical patients</label></li>
+                    <li><input type="radio" name="final2" value="d"><label>D) Maintain speeds of at least 20 mph above posted limits</label></li>
+                </ul>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>3. When should police escorts be used during emergency responses?</strong></p>
+                <ul class="quiz-options">
+                    <li><input type="radio" name="final3" value="a"><label>A) For all Priority 1 emergency calls</label></li>
+                    <li><input type="radio" name="final3" value="b"><label>B) During rush hour traffic conditions</label></li>
+                    <li><input type="radio" name="final3" value="c"><label>C) Only when responding to scenes in unfamiliar areas</label></li>
+                    <li><input type="radio" name="final3" value="d"><label>D) When transporting critical trauma patients</label></li>
+                </ul>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>4. What is the minimum recommended helicopter landing zone size for daytime operations?</strong></p>
+                <ul class="quiz-options">
+                    <li><input type="radio" name="final4" value="a"><label>A) 75 × 75 feet</label></li>
+                    <li><input type="radio" name="final4" value="b"><label>B) 100 × 100 feet</label></li>
+                    <li><input type="radio" name="final4" value="c"><label>C) 125 × 125 feet</label></li>
+                    <li><input type="radio" name="final4" value="d"><label>D) 150 × 150 feet</label></li>
+                </ul>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>5. How many air medical service programs operate in the United States?</strong></p>
+                <ul class="quiz-options">
+                    <li><input type="radio" name="final5" value="a"><label>A) More than 600</label></li>
+                    <li><input type="radio" name="final5" value="b"><label>B) More than 800</label></li>
+                    <li><input type="radio" name="final5" value="c"><label>C) More than 1,000</label></li>
+                    <li><input type="radio" name="final5" value="d"><label>D) More than 1,200</label></li>
+                </ul>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>6. When must patient compartment personnel use seat belts during ambulance operation?</strong></p>
+                <ul class="quiz-options">
+                    <li><input type="radio" name="final6" value="a"><label>A) Only during emergency responses with lights and sirens</label></li>
+                    <li><input type="radio" name="final6" value="b"><label>B) When not attending to a patient and when the vehicle is in motion</label></li>
+                    <li><input type="radio" name="final6" value="c"><label>C) Only when traveling on highways</label></li>
+                    <li><input type="radio" name="final6" value="d"><label>D) Seat belts are not required in the patient compartment</label></li>
+                </ul>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>7. What is the maximum recommended speed when proceeding against traffic flow?</strong></p>
+                <ul class="quiz-options">
+                    <li><input type="radio" name="final7" value="a"><label>A) Less than 15 mph</label></li>
+                    <li><input type="radio" name="final7" value="b"><label>B) Less than 20 mph</label></li>
+                    <li><input type="radio" name="final7" value="c"><label>C) Less than 25 mph</label></li>
+                    <li><input type="radio" name="final7" value="d"><label>D) Less than 30 mph</label></li>
+                </ul>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>8. According to 2019 data, how many people were injured in distracted driving crashes?</strong></p>
+                <ul class="quiz-options">
+                    <li><input type="radio" name="final8" value="a"><label>A) Approximately 280,000</label></li>
+                    <li><input type="radio" name="final8" value="b"><label>B) Approximately 350,000</label></li>
+                    <li><input type="radio" name="final8" value="c"><label>C) Approximately 424,000</label></li>
+                    <li><input type="radio" name="final8" value="d"><label>D) Approximately 500,000</label></li>
+                </ul>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>9. When approaching a helicopter, personnel should:</strong></p>
+                <ul class="quiz-options">
+                    <li><input type="radio" name="final9" value="a"><label>A) Approach from the rear for better visibility</label></li>
+                    <li><input type="radio" name="final9" value="b"><label>B) Walk upright to maintain professionalism</label></li>
+                    <li><input type="radio" name="final9" value="c"><label>C) Approach in a crouched position from the front</label></li>
+                    <li><input type="radio" name="final9" value="d"><label>D) Run quickly to minimize rotor wash exposure</label></li>
+                </ul>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>10. What replaced the federal ambulance standards in October 2016?</strong></p>
+                <ul class="quiz-options">
+                    <li><input type="radio" name="final10" value="a"><label>A) State-specific regulations only</label></li>
+                    <li><input type="radio" name="final10" value="b"><label>B) NFPA 1917 and GVS v.1.0 standards</label></li>
+                    <li><input type="radio" name="final10" value="c"><label>C) DOT transportation guidelines</label></li>
+                    <li><input type="radio" name="final10" value="d"><label>D) International EMS protocols</label></li>
+                </ul>
+            </div>
+
+            <button onclick="submitFinalQuiz()" class="nav-btn" style="font-size: 18px; padding: 15px 30px; margin: 20px auto; display: block;">Submit Final Assessment</button>
+            
+            <div id="final-results" style="display: none; margin: 20px 0; padding: 20px; border-radius: 10px; text-align: center;"></div>
+            
+            <div id="certificate-section" style="display: none; background: #f0f8ff; padding: 30px; border-radius: 10px; margin: 20px 0; text-align: center;">
+                <h3>Certificate of Completion</h3>
+                <input type="text" id="studentName" placeholder="Enter your full name" style="padding: 10px; font-size: 16px; margin: 10px; width: 300px;">
+                <br>
+                <button onclick="generateCertificate()" class="nav-btn">Generate Certificate</button>
+                
+                <div id="certificate" style="display: none; background: white; border: 3px solid gold; padding: 30px; margin: 20px 0;">
+                    <h2>Camp Community College</h2>
+                    <h3>Certificate of Completion</h3>
+                    <p>This certifies that</p>
+                    <h3 id="cert-name" style="border-bottom: 2px solid black; display: inline-block; padding: 5px;">[Name]</h3>
+                    <p>has successfully completed</p>
+                    <h4>EMS Operations: Ground and Air Ambulance Operations</h4>
+                    <p>Score: <span id="cert-score">XX</span>% | Date: <span id="cert-date">XX</span></p>
+                </div>
+                
+                <div id="download-section" style="display: none; margin-top: 20px;">
+                    <button onclick="downloadCertificate()" class="nav-btn" style="background: #27ae60; font-size: 18px; padding: 15px 30px;">
+                        📥 Download Certificate
+                    </button>
+                    <p style="margin-top: 15px; color: #666; font-size: 14px;">
+                        Downloads as HTML file - open in browser and print/save as PDF for Canvas submission
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAVIGATION - This should be visible -->
+        <div class="navigation">
+            <button id="prevBtn" onclick="changeSlide(-1)" class="nav-btn">← Previous</button>
+            <span id="slideCounter">Slide 1 of 15</span>
+            <button id="nextBtn" onclick="changeSlide(1)" class="nav-btn">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 15;
+        const answeredQuestions = new Set(); // Track which knowledge checks have been answered
+
+        function updateProgress() {
+            const progress = (currentSlide / totalSlides) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Slide ${currentSlide} of ${totalSlides}`;
+        }
+
+        function canProceed() {
+            // Allow proceeding if:
+            // 1. Current slide doesn't have a knowledge check
+            // 2. Knowledge check has been answered correctly
+            // 3. It's slide 1 or 15 (special cases)
+            
+            if (currentSlide === 1 || currentSlide === 15) return true;
+            
+            // Define which slides actually have knowledge check questions
+            const knowledgeCheckSlides = [2, 3, 4, 5, 7, 10, 13, 14];
+            
+            if (knowledgeCheckSlides.includes(currentSlide)) {
+                // This slide has a knowledge check - must be answered correctly
+                const questionId = getQuestionId(currentSlide);
+                return answeredQuestions.has(questionId);
+            }
+            
+            // Slides without knowledge checks (6, 8, 9, 11, 12) can always proceed
+            return true;
+        }
+
+        function getQuestionId(slideNumber) {
+            // Map slide numbers to their question IDs
+            const slideToQuestionId = {
+                2: 'q1',
+                3: 'q2', 
+                4: 'q3',
+                5: 'q4',
+                7: 'q5', 
+                10: 'q6',
+                13: 'q7',
+                14: 'q8'
+            };
+            return slideToQuestionId[slideNumber] || '';
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && !canProceed()) {
+                alert('Please complete the knowledge check question on this slide before proceeding.');
+                return;
+            }
+
+            // Hide current slide
+            document.getElementById('slide' + currentSlide).classList.remove('active');
+            
+            // Update slide number
+            currentSlide += direction;
+            if (currentSlide < 1) currentSlide = 1;
+            if (currentSlide > totalSlides) currentSlide = totalSlides;
+            
+            // Show new slide
+            document.getElementById('slide' + currentSlide).classList.add('active');
+            
+            // Update counter
+            document.getElementById('slideCounter').textContent = `Slide ${currentSlide} of ${totalSlides}`;
+            
+            // Update buttons
+            document.getElementById('prevBtn').disabled = (currentSlide === 1);
+            document.getElementById('nextBtn').disabled = (currentSlide === totalSlides);
+            
+            updateProgress();
+        }
+
+        function checkAnswer(questionId, correctAnswer, explanation) {
+            const selected = document.querySelector(`input[name="${questionId}"]:checked`);
+            const feedback = document.getElementById(`${questionId}-feedback`);
+            
+            if (!selected) {
+                alert('Please select an answer before checking.');
+                return;
+            }
+            
+            feedback.style.display = 'block';
+            if (selected.value === correctAnswer) {
+                feedback.className = 'quiz-feedback correct';
+                feedback.textContent = '✓ ' + explanation;
+                // Mark this question as answered correctly
+                answeredQuestions.add(questionId);
+                
+                // Show a brief success message
+                setTimeout(() => {
+                    alert('Correct! You may now proceed to the next slide.');
+                }, 500);
+            } else {
+                feedback.className = 'quiz-feedback incorrect';
+                feedback.innerHTML = `
+                    <strong>✗ Incorrect Answer</strong><br>
+                    ${explanation}<br><br>
+                    <strong>Please re-read the material on this slide and try again.</strong> You must answer correctly to proceed to the next slide.
+                    <br><br>
+                    <button onclick="resetQuestion('${questionId}')" class="nav-btn" style="margin-top: 10px; font-size: 14px;">Try Again</button>
+                `;
+                // Don't allow proceeding for incorrect answers
+                answeredQuestions.delete(questionId);
+            }
+        }
+
+        function resetQuestion(questionId) {
+            // Clear the selected answer
+            const radios = document.querySelectorAll(`input[name="${questionId}"]`);
+            radios.forEach(radio => radio.checked = false);
+            
+            // Hide the feedback
+            const feedback = document.getElementById(`${questionId}-feedback`);
+            feedback.style.display = 'none';
+            
+            // Remove from answered questions set
+            answeredQuestions.delete(questionId);
+            
+            // Alert the student to re-read
+            alert('Please re-read the content on this slide carefully, then select a new answer and click "Check Answer" again.');
+        }
+
+        function submitFinalQuiz() {
+            const answers = ['b', 'b', 'c', 'b', 'b', 'b', 'b', 'c', 'c', 'b']; // Correct answers for all 10 questions
+            let score = 0;
+            let totalQuestions = 10;
+            
+            // Check if all questions are answered
+            for (let i = 1; i <= totalQuestions; i++) {
+                const selected = document.querySelector(`input[name="final${i}"]:checked`);
+                if (!selected) {
+                    alert('Please answer all questions before submitting.');
+                    return;
+                }
+            }
+            
+            // Check each answer
+            for (let i = 1; i <= totalQuestions; i++) {
+                const selected = document.querySelector(`input[name="final${i}"]:checked`);
+                if (selected && selected.value === answers[i-1]) {
+                    score++;
+                }
+            }
+            
+            const percentage = Math.round((score / totalQuestions) * 100);
+            const resultsDiv = document.getElementById('final-results');
+            
+            resultsDiv.style.display = 'block';
+            
+            if (percentage >= 80) {
+                resultsDiv.className = 'quiz-feedback correct';
+                resultsDiv.innerHTML = `
+                    <h3>🎉 Congratulations! You Passed!</h3>
+                    <p><strong>Your Score: ${percentage}%</strong> (${score}/${totalQuestions} correct)</p>
+                    <p>You have successfully demonstrated competency in EMS Operations!</p>
+                `;
+                document.getElementById('certificate-section').style.display = 'block';
+                window.finalScore = percentage; // Store for certificate
+            } else {
+                resultsDiv.className = 'quiz-feedback incorrect';
+                resultsDiv.innerHTML = `
+                    <h3>📚 Additional Study Needed</h3>
+                    <p><strong>Your Score: ${percentage}%</strong> (${score}/${totalQuestions} correct)</p>
+                    <p>You need 80% (8/10 correct) to pass. Please review the material and retake the assessment.</p>
+                    <button onclick="retakeFinalQuiz()" class="nav-btn" style="margin-top: 15px;">Retake Assessment</button>
+                `;
+            }
+        }
+
+        function retakeFinalQuiz() {
+            // Clear all final quiz selections
+            for (let i = 1; i <= 10; i++) {
+                const radios = document.querySelectorAll(`input[name="final${i}"]`);
+                radios.forEach(radio => radio.checked = false);
+            }
+            
+            // Hide results
+            document.getElementById('final-results').style.display = 'none';
+            
+            alert('You may now retake the assessment. Please answer all questions again.');
+        }
+
+        function generateCertificate() {
+            const name = document.getElementById('studentName').value.trim();
+            if (!name) {
+                alert('Please enter your name to generate the certificate.');
+                return;
+            }
+            
+            document.getElementById('cert-name').textContent = name;
+            document.getElementById('cert-score').textContent = window.finalScore || '80';
+            document.getElementById('cert-date').textContent = new Date().toLocaleDateString();
+            document.getElementById('certificate').style.display = 'block';
+            
+            // Show download button
+            document.getElementById('download-section').style.display = 'block';
+        }
+
+        function downloadCertificate() {
+            const name = document.getElementById('cert-name').textContent;
+            const score = document.getElementById('cert-score').textContent;
+            const date = document.getElementById('cert-date').textContent;
+            
+            // Create certificate content as HTML
+            const certificateHTML = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>EMS Operations Certificate - ${name}</title>
+                    <style>
+                        body {
+                            font-family: 'Times New Roman', serif;
+                            max-width: 800px;
+                            margin: 40px auto;
+                            padding: 40px;
+                            background: white;
+                            color: #333;
+                        }
+                        .certificate-border {
+                            border: 8px solid #d4af37;
+                            padding: 40px;
+                            text-align: center;
+                        }
+                        .college-header {
+                            font-size: 24px;
+                            font-weight: bold;
+                            color: #2c3e50;
+                            margin-bottom: 10px;
+                        }
+                        .program-name {
+                            font-size: 16px;
+                            color: #7f8c8d;
+                            margin-bottom: 30px;
+                        }
+                        .certificate-title {
+                            font-size: 48px;
+                            color: #e74c3c;
+                            margin: 30px 0;
+                            text-transform: uppercase;
+                            font-weight: bold;
+                        }
+                        .completion-text {
+                            font-size: 18px;
+                            margin: 20px 0;
+                            line-height: 1.6;
+                        }
+                        .student-name {
+                            font-size: 32px;
+                            color: #2c3e50;
+                            margin: 30px 0;
+                            font-style: italic;
+                            border-bottom: 3px solid #333;
+                            display: inline-block;
+                            padding-bottom: 10px;
+                        }
+                        .course-name {
+                            font-size: 20px;
+                            font-weight: bold;
+                            margin: 20px 0;
+                        }
+                        .details {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-top: 50px;
+                            padding-top: 20px;
+                            border-top: 2px solid #bdc3c7;
+                        }
+                        .signature-line {
+                            border-top: 2px solid #333;
+                            padding-top: 10px;
+                            width: 250px;
+                            text-align: center;
+                        }
+                        @media print {
+                            body { margin: 0; }
+                            .no-print { display: none; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="certificate-border">
+                        <div class="college-header">CAMP COMMUNITY COLLEGE</div>
+                        <div class="program-name">Emergency Medical Services Education Program</div>
+                        
+                        <div class="certificate-title">Certificate of Completion</div>
+                        
+                        <div class="completion-text">This certifies that</div>
+                        
+                        <div class="student-name">${name}</div>
+                        
+                        <div class="completion-text">
+                            has successfully completed the training module
+                        </div>
+                        
+                        <div class="course-name">
+                            "EMS Operations: Ground and Air Ambulance Operations"
+                        </div>
+                        
+                        <div class="completion-text">
+                            based on Sanders' Paramedic 6th Edition<br>
+                            and achieved a passing score of <strong>${score}%</strong> on the final assessment<br>
+                            Completion Time: 120 Minutes
+                        </div>
+                        
+                        <div class="details">
+                            <div>
+                                <div class="signature-line">
+                                    <strong>Bee, EMS Educator</strong><br>
+                                    Program Director<br>
+                                    ${date}
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div class="signature-line">
+                                    <strong>Certificate ID:</strong><br>
+                                    EMS-${Date.now()}<br>
+                                    Verified Completion
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="no-print" style="text-align: center; margin-top: 30px; color: #666;">
+                        <p>To save as PDF: Press Ctrl+P (Windows) or Cmd+P (Mac), then select "Save as PDF"</p>
+                    </div>
+                </body>
+                </html>
+            `;
+
+            // Create and download the file
+            const blob = new Blob([certificateHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `EMS_Operations_Certificate_${name.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.html`;
+            
+            // Trigger download
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            // Show instructions
+            setTimeout(() => {
+                alert(`Certificate downloaded! Open the HTML file in your browser and print/save as PDF.\n\nWindows: Ctrl+P → Save as PDF\nMac: Cmd+P → PDF → Save as PDF\nMobile: Use browser print menu`);
+            }, 1000);
+        }
+
+        // Initialize
+        document.getElementById('prevBtn').disabled = true;
+        updateProgress();
+    </script>
+</body>
+</html>
