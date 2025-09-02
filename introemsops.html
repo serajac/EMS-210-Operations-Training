@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1: Introduction to EMS Operations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .section-content { display: none; }
+        .section-content.active { display: block; }
+        .nav-item.active { 
+            background-color: #dbeafe; 
+            color: #1e40af; 
+            border-left: 4px solid #3b82f6; 
+        }
+        .quiz-question { display: none; }
+        .quiz-question.active { display: block; }
+        .progress-bar { transition: width 0.3s ease-in-out; }
+        
+        /* Fix spacing issues */
+        .space-y-2 > * + * { margin-top: 0.5rem; }
+        .space-y-3 > * + * { margin-top: 0.75rem; }
+        .space-y-4 > * + * { margin-top: 1rem; }
+        .space-y-6 > * + * { margin-top: 1.5rem; }
+        
+        /* Remove excessive spacing */
+        p { margin: 0; }
+        ul { margin: 0; padding-left: 1.25rem; }
+        li { margin: 0; }
+        
+        /* Ensure consistent line height */
+        body { line-height: 1.5; }
+        
+        /* Fix button spacing */
+        button { margin: 0; }
+        
+        /* Clean up card spacing */
+        .rounded-lg { overflow: hidden; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="max-w-7xl mx-auto p-6">
+        <div class="flex flex-col lg:flex-row gap-6">
+            <!-- Navigation Sidebar -->
+            <div class="lg:w-1/4">
+                <div class="bg-white rounded-lg shadow border p-6 sticky top-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Module Progress</h3>
+                    <div class="w-full bg-gray-200 rounded-full h-3 mb-2">
+                        <div id="progress-bar" class="bg-blue-600 h-3 rounded-full progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="progress-text" class="text-sm text-gray-600 mb-6">0 of 10 sections completed</p>
+                    
+                    <nav>
+                        <ul class="space-y-1">
+                            <li>
+                                <button onclick="showSection('overview')" class="nav-item w-full text-left p-3 rounded hover:bg-gray-100 transition-colors" data-section="overview">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-medium text-sm">Module Overview</span>
+                                        <span class="completion-check text-green-500 hidden text-sm">✓</span>
+                                    </div>
+                                </button>
+                            </li>
+                            <li>
+                                <button onclick="showSection('evolution')" class="nav-item w-full text-left p-3 rounded hover:bg-gray-100 transition-colors" data-section="evolution">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-medium text-sm">Evolution of EMS</span>
+                                        <span class="completion-check text-green-500 hidden text-sm">✓</span>
+                                    </div>
+                                </button>
+                            </li>
+                            <li>
+                                <button onclick="showSection('components')" class="nav-item w-full text-left p-3 rounded hover:bg-gray-100 transition-colors" data-section="components">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-medium text-sm">System Components</span>
+                                        <span class="completion-check text-green-500 hidden text-sm">✓</span>
+                                    </div>
+                                </button>
+                            </li>
+                            <li>
+                                <button onclick="showSection('management')" class="nav-item w-full text-left p-3 rounded hover:bg-gray-100 transition-colors" data-section="management">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-medium text-sm">Operations Management</span>
+                                        <span class="completion-check text-green-500 hidden text-sm">✓</span>
+                                    </div>
+                                </button>
+                            </li>
+                            <li>
+                                <button onclick="showSection('legal')" class="nav-item w-full text-left p-3 rounded hover:bg-gray-100 transition-colors" data-section="legal">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-medium text-sm">Legal Framework</span>
+                                        <span class="completion-check text-green-500 hidden text-sm">✓</span>
+                                    </div>
+                                </button>
+                            </li>
+                            <li>
+                                <button onclick="showSection('safety')" class="nav-item w-full text-left p-3 rounded hover:bg-gray-100 transition-colors" data-section="safety">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-medium text-sm">Safety Culture</span>
+                                        <span class="completion-check text-green-500 hidden text-sm">✓</span>
+                                    </div>
+                                </button>
+                            </li>
+                            <li>
+                                <button onclick="showSection('incident')" class="nav-item w-full text-left p-3 rounded hover:bg-gray-100 transition-colors" data-section="incident">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-medium text-sm">Incident Command</span>
+                                        <span class="completion-check text-green-500 hidden text-sm">✓</span>
+                                    </div>
+                                </button>
+                            </li>
+                            <li>
+                                <button onclick="showSection('specialized')" class="nav-item w-full text-left p-3 rounded hover:bg-gray-100 transition-colors" data-section="specialized">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-medium text-sm">Specialized Operations</span>
+                                        <span class="completion-check text-green-500 hidden text-sm">✓</span>
+                                    </div>
+                                </button>
+                            </li>
+                            <li>
+                                <button onclick="showSection('activities')" class="nav-item w-full text-left p-3 rounded hover:bg-gray-100 transition-colors" data-section="activities">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-medium text-sm">Learning Activities</span>
+                                        <span class="completion-check text-green-500 hidden text-sm">✓</span>
+                                    </div>
+                                </button>
+                            </li>
+                            <li>
+                                <button onclick="showSection('assessment')" class="nav-item w-full text-left p-3 rounded hover:bg-gray-100 transition-colors" data-section="assessment">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-medium text-sm">Assessment</span>
+                                        <span class="completion-check text-green-500 hidden text-sm">✓</span>
+                                    </div>
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="lg:w-3/4">
+                <div class="bg-white rounded-lg shadow border p-8">
+                    
+                    <!-- Overview Section -->
+                    <div id="overview" class="section-content active">
+                        <div class="space-y-6">
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                                <h1 class="text-3xl font-bold text-blue-900 mb-4">Module 1: Introduction to EMS Operations</h1>
+                                <h2 class="text-xl font-semibold text-blue-800 mb-3">Week 1 Learning Objectives</h2>
+                                <p class="text-blue-700 mb-4">Upon completion of this module, students will be able to:</p>
+                                <ul class="space-y-2 text-blue-700">
+                                    <li class="flex items-start">
+                                        <span class="text-green-600 mr-2">✓</span>
+                                        Define the scope and complexity of modern EMS operations
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-green-600 mr-2">✓</span>
+                                        Identify the key components of an integrated EMS system
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-green-600 mr-2">✓</span>
+                                        Explain the role of operations management in emergency medical services
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-green-600 mr-2">✓</span>
+                                        Describe the regulatory and legal framework governing EMS operations
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-green-600 mr-2">✓</span>
+                                        Understand the importance of safety culture in EMS operations
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <h3 class="text-lg font-semibold mb-4">What is Emergency Medical Services?</h3>
+                                <p class="text-gray-700 mb-4">
+                                    <strong>Emergency Medical Services (EMS)</strong> systems respond to emergencies requiring skilled prehospital clinicians. 
+                                    EMS clinicians aren't just the first healthcare practitioner on the scene; they're often the first to identify a healthcare crisis 
+                                    in a community and act as a critical component of emergency management and, increasingly, a practitioner of community healthcare.
+                                </p>
+                                <p class="text-gray-700 mb-4">
+                                    EMS operates at the crossroads of <strong class="text-blue-600">healthcare, public health, emergency management, and public safety.</strong> 
+                                    A comprehensive EMS system is ready every day for every kind of emergency, whether or not that includes going to the hospital.
+                                </p>
+                                <div class="bg-white p-4 rounded border-l-4 border-green-500">
+                                    <p class="text-sm text-gray-600 font-medium mb-2">Key Insight:</p>
+                                    <p class="text-gray-700 text-sm">Modern EMS extends beyond emergency response to include Community Paramedicine (CP) and Mobile Integrated Healthcare (MIH), providing scheduled care to underserved populations and supporting preventive healthcare initiatives.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Bottom Navigation -->
+                            <div class="flex justify-between items-center pt-6 border-t border-gray-200">
+                                <button onclick="showSection('assessment')" class="flex items-center px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors">
+                                    <span class="mr-2">←</span>
+                                    <span>Previous: Assessment</span>
+                                </button>
+                                <button onclick="showSection('evolution')" class="flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
+                                    <span>Next: Evolution of EMS</span>
+                                    <span class="ml-2">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Evolution Section -->
+                    <div id="evolution" class="section-content">
+                        <div class="space-y-6">
+                            <h1 class="text-3xl font-bold text-gray-900">Evolution of EMS Systems and Operations</h1>
+                            
+                            <div class="bg-amber-50 p-6 rounded-lg border-l-4 border-amber-500">
+                                <h3 class="text-lg font-semibold text-amber-900 mb-3">Historical Timeline</h3>
+                                <div class="space-y-4">
+                                    <div class="border-l-2 border-amber-300 pl-4">
+                                        <h4 class="font-semibold text-amber-800">Napoleonic Era (1792-1815)</h4>
+                                        <p class="text-amber-700">Jean Dominique Larrey, Napoleon's chief physician, organized the first systematic approach to treat and transport injured soldiers. He created the "flying ambulance" - horse-drawn carriages that could quickly evacuate wounded soldiers from battlefields. This marked the beginning of organized emergency medical transport.</p>
+                                    </div>
+                                    <div class="border-l-2 border-amber-300 pl-4">
+                                        <h4 class="font-semibold text-amber-800">Civil War (1861-1865)</h4>
+                                        <p class="text-amber-700">The Union Army developed a comprehensive system to evacuate soldiers from the field, including field hospitals, ambulance corps, and organized triage systems. These innovations formed the foundation for civilian EMS systems and introduced concepts of organized emergency medical care that persist today.</p>
+                                    </div>
+                                    <div class="border-l-2 border-amber-300 pl-4">
+                                        <h4 class="font-semibold text-amber-800">"Accidental Death and Disability" Report (1966)</h4>
+                                        <p class="text-amber-700">This landmark National Academy of Sciences report documented the absence of quality emergency care and identified major deficiencies including lack of treatment protocols, few trained medical personnel, inefficient transportation, and poor communications systems.</p>
+                                    </div>
+                                    <div class="border-l-2 border-amber-300 pl-4">
+                                        <h4 class="font-semibold text-amber-800">Highway Safety Act (1966)</h4>
+                                        <p class="text-amber-700">Established the Department of Transportation and provided the first federal involvement in EMS. The Act created standards for ambulance design, equipment, communications, and personnel training. It viewed EMS primarily as a transportation service rather than medical care.</p>
+                                    </div>
+                                    <div class="border-l-2 border-amber-300 pl-4">
+                                        <h4 class="font-semibold text-amber-800">EMS Systems Act (1973)</h4>
+                                        <p class="text-amber-700">Identified 15 essential elements of EMS systems: manpower, training, communications, transportation, facilities, critical care units, public safety agencies, consumer participation, access to care, patient transfer, coordinated patient records, public information, review and evaluation, disaster planning, and mutual aid.</p>
+                                    </div>
+                                    <div class="border-l-2 border-amber-300 pl-4">
+                                        <h4 class="font-semibold text-amber-800">EMS Agenda for the Future (1996)</h4>
+                                        <p class="text-amber-700">NHTSA and HRSA commissioned this strategic plan that outlined a vision for EMS integration with healthcare systems, community health involvement, and adequate funding. It established 14 EMS attributes for system development.</p>
+                                    </div>
+                                    <div class="border-l-2 border-amber-300 pl-4">
+                                        <h4 class="font-semibold text-amber-800">NIMS Implementation (2003)</h4>
+                                        <p class="text-amber-700">HSPD-5 established the National Incident Management System, creating standardized incident command and management protocols. This became mandatory for all emergency response agencies to ensure interoperability and coordinated response capabilities.</p>
+                                    </div>
+                                    <div class="border-l-2 border-amber-300 pl-4">
+                                        <h4 class="font-semibold text-amber-800">EMS Agenda 2050 (2019)</h4>
+                                        <p class="text-amber-700">The most recent strategic vision emphasizing people-centered EMS systems, integration with healthcare and public health, community paramedicine expansion, and technology advancement for improved patient outcomes and system efficiency.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-lg border">
+                                <h3 class="text-lg font-semibold mb-3">Modern EMS Challenges and Solutions</h3>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="bg-red-50 p-4 rounded-lg">
+                                        <h4 class="font-semibold text-red-800 mb-2">Historical Challenges</h4>
+                                        <ul class="text-red-700 text-sm space-y-1">
+                                            <li>• No standardized treatment protocols</li>
+                                            <li>• Few trained medical personnel</li>
+                                            <li>• Inefficient transportation systems</li>
+                                            <li>• Lack of modern communications</li>
+                                            <li>• Absence of quality emergency care standards</li>
+                                            <li>• Limited medical oversight and direction</li>
+                                            <li>• Poor inter-agency coordination</li>
+                                            <li>• Inadequate funding mechanisms</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-green-50 p-4 rounded-lg">
+                                        <h4 class="font-semibold text-green-800 mb-2">Modern Solutions</h4>
+                                        <ul class="text-green-700 text-sm space-y-1">
+                                            <li>• Evidence-based treatment protocols</li>
+                                            <li>• Standardized training and certification programs</li>
+                                            <li>• Advanced communications technology</li>
+                                            <li>• Quality improvement and performance measurement</li>
+                                            <li>• Integrated healthcare systems</li>
+                                            <li>• Medical direction and oversight systems</li>
+                                            <li>• Interoperable communication systems</li>
+                                            <li>• Diversified funding and sustainable models</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                                <h3 class="text-lg font-semibold text-blue-900 mb-3">Key Milestones in EMS Development</h3>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h4 class="font-semibold text-blue-800 mb-2">Training and Certification Evolution</h4>
+                                        <ul class="text-blue-700 text-sm space-y-1">
+                                            <li>• 1970s: Basic EMT training programs established</li>
+                                            <li>• 1980s: Paramedic programs expand nationally</li>
+                                            <li>• 1990s: National Registry certification standardized</li>
+                                            <li>• 2000s: Evidence-based education standards</li>
+                                            <li>• 2010s: AEMT level introduced nationwide</li>
+                                            <li>• Present: Competency-based education models</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-blue-800 mb-2">Technology Integration</h4>
+                                        <ul class="text-blue-700 text-sm space-y-1">
+                                            <li>• 1970s: Basic radio communication systems</li>
+                                            <li>• 1980s: Cardiac monitor/defibrillator advancement</li>
+                                            <li>• 1990s: Computer-aided dispatch (CAD) systems</li>
+                                            <li>• 2000s: Electronic patient care records</li>
+                                            <li>• 2010s: GPS tracking and mobile data terminals</li>
+                                            <li>• Present: Telehealth and AI integration</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bottom Navigation -->
+                            <div class="flex justify-between items-center pt-6 border-t border-gray-200">
+                                <button onclick="showSection('overview')" class="flex items-center px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors">
+                                    <span class="mr-2">←</span>
+                                    <span>Previous: Module Overview</span>
+                                </button>
+                                <button onclick="showSection('components')" class="flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
+                                    <span>Next: System Components</span>
+                                    <span class="ml-2">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Components Section -->
+                    <div id="components" class="section-content">
+                        <div class="space-y-6">
+                            <h1 class="text-3xl font-bold text-gray-900">System Components: Personnel, Equipment, Communications, Facilities</h1>
+                            
+                            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 text-center">
+                                    <div class="text-2xl mb-2">👥</div>
+                                    <h3 class="font-semibold text-blue-900">Personnel</h3>
+                                </div>
+                                <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500 text-center">
+                                    <div class="text-2xl mb-2">🛡️</div>
+                                    <h3 class="font-semibold text-green-900">Equipment</h3>
+                                </div>
+                                <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500 text-center">
+                                    <div class="text-2xl mb-2">📡</div>
+                                    <h3 class="font-semibold text-purple-900">Communications</h3>
+                                </div>
+                                <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500 text-center">
+                                    <div class="text-2xl mb-2">🏥</div>
+                                    <h3 class="font-semibold text-orange-900">Facilities</h3>
+                                </div>
+                            </div>
+
+                            <div class="bg-white border rounded-lg">
+                                <div class="bg-gray-50 px-6 py-4 border-b">
+                                    <h3 class="text-lg font-semibold text-gray-900">EMS Personnel Levels</h3>
+                                </div>
+                                <div class="p-6">
+                                    <div class="space-y-4">
+                                        <div class="border-l-4 border-red-400 pl-4">
+                                            <h4 class="font-semibold text-red-800">Emergency Medical Responder (EMR)</h4>
+                                            <p class="text-gray-700 text-sm">First trained individuals at emergency scenes. Perform basic life-saving techniques such as CPR, bleeding control, and initial patient assessment.</p>
+                                        </div>
+                                        <div class="border-l-4 border-yellow-400 pl-4">
+                                            <h4 class="font-semibold text-yellow-800">Emergency Medical Technician (EMT)</h4>
+                                            <p class="text-gray-700 text-sm">Provide basic emergency care including oxygen administration, certain medications, and patient transport with continued care during transit.</p>
+                                        </div>
+                                        <div class="border-l-4 border-blue-400 pl-4">
+                                            <h4 class="font-semibold text-blue-800">Advanced Emergency Medical Technician (AEMT)</h4>
+                                            <p class="text-gray-700 text-sm">Provide intermediate emergency care with basic medications and limited advanced procedures, bridging EMTs and Paramedics.</p>
+                                        </div>
+                                        <div class="border-l-4 border-green-400 pl-4">
+                                            <h4 class="font-semibold text-green-800">Paramedic</h4>
+                                            <p class="text-gray-700 text-sm">Highly trained professionals providing advanced emergency care including medication administration, intubation, IV access, and complex life-saving procedures.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white border rounded-lg">
+                                <div class="bg-gray-50 px-6 py-4 border-b">
+                                    <h3 class="text-lg font-semibold text-gray-900">Essential Equipment Categories</h3>
+                                </div>
+                                <div class="p-6">
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800 mb-3">Life Support Equipment</h4>
+                                            <ul class="text-gray-700 text-sm space-y-1">
+                                                <li>• Cardiac monitor/defibrillators</li>
+                                                <li>• Advanced airway management devices</li>
+                                                <li>• Mechanical ventilators</li>
+                                                <li>• IV therapy and medication administration</li>
+                                                <li>• Pulse oximetry and capnography</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800 mb-3">Transport Equipment</h4>
+                                            <ul class="text-gray-700 text-sm space-y-1">
+                                                <li>• Ambulance stretchers and restraint systems</li>
+                                                <li>• Spinal immobilization devices</li>
+                                                <li>• Stair chairs and evacuation devices</li>
+                                                <li>• Portable suction units</li>
+                                                <li>• Emergency lighting and communication</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white border rounded-lg">
+                                <div class="bg-gray-50 px-6 py-4 border-b">
+                                    <h3 class="text-lg font-semibold text-gray-900">Communication Systems</h3>
+                                </div>
+                                <div class="p-6">
+                                    <div class="grid md:grid-cols-3 gap-4">
+                                        <div class="bg-purple-50 p-4 rounded-lg">
+                                            <h4 class="font-semibold text-purple-800 mb-2">Dispatch Centers</h4>
+                                            <p class="text-purple-700 text-sm">Emergency Medical Dispatch (EMD) with Computer Aided Dispatch (CAD) systems providing call processing, resource allocation, and incident tracking.</p>
+                                        </div>
+                                        <div class="bg-purple-50 p-4 rounded-lg">
+                                            <h4 class="font-semibold text-purple-800 mb-2">Field Communications</h4>
+                                            <p class="text-purple-700 text-sm">Two-way radio systems, mobile data terminals, and cellular communications enabling real-time coordination and medical direction.</p>
+                                        </div>
+                                        <div class="bg-purple-50 p-4 rounded-lg">
+                                            <h4 class="font-semibold text-purple-800 mb-2">Hospital Integration</h4>
+                                            <p class="text-purple-700 text-sm">Electronic patient care records, hospital notification systems, and telemedicine capabilities for seamless care transitions.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white border rounded-lg">
+                                <div class="bg-gray-50 px-6 py-4 border-b">
+                                    <h3 class="text-lg font-semibold text-gray-900">Facilities and Infrastructure</h3>
+                                </div>
+                                <div class="p-6">
+                                    <div class="space-y-4">
+                                        <div class="border-l-4 border-orange-400 pl-4">
+                                            <h4 class="font-semibold text-orange-800">EMS Stations and Bases</h4>
+                                            <p class="text-gray-700 text-sm">Strategic locations for personnel housing, equipment storage, vehicle maintenance, and administrative operations positioned to optimize response times and coverage areas.</p>
+                                        </div>
+                                        <div class="border-l-4 border-orange-400 pl-4">
+                                            <h4 class="font-semibold text-orange-800">Training Facilities</h4>
+                                            <p class="text-gray-700 text-sm">Specialized centers equipped for initial education, continuing education, and competency testing with simulation labs, driving courses, and scenario-based training areas.</p>
+                                        </div>
+                                        <div class="border-l-4 border-orange-400 pl-4">
+                                            <h4 class="font-semibold text-orange-800">Support Infrastructure</h4>
+                                            <p class="text-gray-700 text-sm">Maintenance facilities, supply chain management, communications centers, and administrative offices supporting comprehensive system operations.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Bottom Navigation -->
+                            <div class="flex justify-between items-center pt-6 border-t border-gray-200">
+                                <button onclick="showSection('evolution')" class="flex items-center px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors">
+                                    <span class="mr-2">←</span>
+                                    <span>Previous: Evolution of EMS</span>
+                                </button>
+                                <button onclick="showSection('management')" class="flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
+                                    <span>Next: Operations Management</span>
+                                    <span class="ml-2">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Management Section -->
+                    <div id="management" class="section-content">
+                        <div class="space-y-6">
+                            <h1 class="text-3xl font-bold text-gray-900">Operations Management in Emergency Medical Services</h1>
+                            
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
+                                <h3 class="text-lg font-semibold text-purple-900 mb-3">Role of Operations Management</h3>
+                                <p class="text-purple-700 mb-4">
+                                    EMS operations management coordinates the complex interplay of resources, personnel, and systems to ensure effective emergency medical care delivery. 
+                                    It encompasses strategic planning, resource allocation, quality improvement, and performance measurement.
+                                </p>
+                                <div class="grid md:grid-cols-3 gap-4 mt-4">
+                                    <div class="bg-white p-4 rounded border">
+                                        <h4 class="font-semibold text-purple-800 mb-2">Strategic Planning</h4>
+                                        <p class="text-purple-700 text-sm">Long-term system development, resource planning, and capability enhancement</p>
+                                    </div>
+                                    <div class="bg-white p-4 rounded border">
+                                        <h4 class="font-semibold text-purple-800 mb-2">Resource Management</h4>
+                                        <p class="text-purple-700 text-sm">Personnel scheduling, equipment allocation, and fleet management</p>
+                                    </div>
+                                    <div class="bg-white p-4 rounded border">
+                                        <h4 class="font-semibold text-purple-800 mb-2">Quality Assurance</h4>
+                                        <p class="text-purple-700 text-sm">Performance monitoring, protocol compliance, and continuous improvement</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white border rounded-lg">
+                                <div class="bg-gray-50 px-6 py-4 border-b">
+                                    <h3 class="text-lg font-semibold text-gray-900">Key Management Functions</h3>
+                                </div>
+                                <div class="p-6 space-y-6">
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800 mb-3">Operational Planning</h4>
+                                            <ul class="text-gray-700 text-sm space-y-2">
+                                                <li>• <strong>System Status Management:</strong> Dynamic positioning of resources based on call patterns and demand forecasting</li>
+                                                <li>• <strong>Deployment Strategies:</strong> Fixed post vs. flexible deployment models for optimal coverage</li>
+                                                <li>• <strong>Mutual Aid Planning:</strong> Inter-agency cooperation agreements and resource sharing protocols</li>
+                                                <li>• <strong>Disaster Preparedness:</strong> Emergency response plans and resource surge capacity</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800 mb-3">Performance Management</h4>
+                                            <ul class="text-gray-700 text-sm space-y-2">
+                                                <li>• <strong>Response Time Analytics:</strong> Monitoring and improving emergency response intervals</li>
+                                                <li>• <strong>Clinical Outcome Tracking:</strong> Patient care quality indicators and success metrics</li>
+                                                <li>• <strong>Resource Utilization:</strong> Equipment usage, personnel productivity, and cost-effectiveness</li>
+                                                <li>• <strong>Continuous Improvement:</strong> Data-driven process enhancement and best practice implementation</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white border rounded-lg">
+                                <div class="bg-blue-50 px-6 py-4 border-b">
+                                    <h3 class="text-lg font-semibold text-blue-900">Medical Direction and Oversight</h3>
+                                </div>
+                                <div class="p-6">
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <div class="bg-green-50 p-4 rounded-lg">
+                                            <h4 class="font-semibold text-green-800 mb-3">Online Medical Direction</h4>
+                                            <ul class="text-green-700 text-sm space-y-1">
+                                                <li>• Real-time physician consultation during emergencies</li>
+                                                <li>• Complex case management and treatment authorization</li>
+                                                <li>• Medication administration oversight</li>
+                                                <li>• Destination hospital selection guidance</li>
+                                                <li>• Telemedicine integration for remote consultation</li>
+                                            </ul>
+                                        </div>
+                                        <div class="bg-blue-50 p-4 rounded-lg">
+                                            <h4 class="font-semibold text-blue-800 mb-3">Offline Medical Direction</h4>
+                                            <ul class="text-blue-700 text-sm space-y-1">
+                                                <li>• Development of evidence-based treatment protocols</li>
+                                                <li>• Personnel training and competency standards</li>
+                                                <li>• Quality assurance and improvement programs</li>
+                                                <li>• Case review and continuing education</li>
+                                                <li>• System policy development and implementation</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Bottom Navigation -->
+                            <div class="flex justify-between items-center pt-6 border-t border-gray-200">
+                                <button onclick="showSection('components')" class="flex items-center px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors">
+                                    <span class="mr-2">←</span>
+                                    <span>Previous: System Components</span>
+                                </button>
+                                <button onclick="showSection('legal')" class="flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
+                                    <span>Next: Legal Framework</span>
+                                    <span class="ml-2">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Legal Section -->
+                    <div id="legal" class="section-content">
+                        <div class="space-y-6">
+                            <h1 class="text-3xl font-bold text-gray-900">Legal and Ethical Considerations in Operations</h1>
+                            
+                            <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
+                                <h3 class="text-lg font-semibold text-red-900 mb-3">Regulatory Framework</h3>
+                                <p class="text-red-700 mb-4">
+                                    EMS operations are governed by a complex framework of federal, state, and local regulations that establish standards for 
+                                    personnel training, equipment specifications, operational protocols, and quality assurance.
+                                </p>
+                            </div>
+
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div class="bg-white border rounded-lg p-4">
+                                    <h4 class="font-semibold text-gray-800 mb-3">Federal Level</h4>
+                                    <ul class="text-gray-700 text-sm space-y-1">
+                                        <li>• NHTSA Standards and Guidelines</li>
+                                        <li>• DOT Vehicle Specifications</li>
+                                        <li>• OSHA Safety Requirements</li>
+                                        <li>• HIPAA Privacy Regulations</li>
+                                        <li>• EMTALA Transfer Requirements</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white border rounded-lg p-4">
+                                    <h4 class="font-semibold text-gray-800 mb-3">State Level</h4>
+                                    <ul class="text-gray-700 text-sm space-y-1">
+                                        <li>• EMS Office Regulations</li>
+                                        <li>• Personnel Licensure/Certification</li>
+                                        <li>• Scope of Practice Definitions</li>
+                                        <li>• Ambulance Service Licensing</li>
+                                        <li>• Medical Direction Requirements</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white border rounded-lg p-4">
+                                    <h4 class="font-semibold text-gray-800 mb-3">Local Level</h4>
+                                    <ul class="text-gray-700 text-sm space-y-1">
+                                        <li>• County/City Credentialing</li>
+                                        <li>• Local Protocols and Procedures</li>
+                                        <li>• Employer Policies</li>
+                                        <li>• Quality Improvement Programs</li>
+                                        <li>• Community-Specific Requirements</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="bg-white border rounded-lg">
+                                <div class="bg-gray-50 px-6 py-4 border-b">
+                                    <h3 class="text-lg font-semibold text-gray-900">Key Legal Considerations</h3>
+                                </div>
+                                <div class="p-6 space-y-4">
+                                    <div class="border-l-4 border-blue-400 pl-4">
+                                        <h4 class="font-semibold text-blue-800">Scope of Practice</h4>
+                                        <p class="text-gray-700 text-sm">Legal boundaries defining the procedures, medications, and interventions that EMS personnel may perform based on their certification level and local protocols.</p>
+                                    </div>
+                                    <div class="border-l-4 border-green-400 pl-4">
+                                        <h4 class="font-semibold text-green-800">Informed Consent and Refusal</h4>
+                                        <p class="text-gray-700 text-sm">Legal requirements for obtaining patient consent for treatment and proper documentation of refusal of care situations with competent adults.</p>
+                                    </div>
+                                    <div class="border-l-4 border-yellow-400 pl-4">
+                                        <h4 class="font-semibold text-yellow-800">Documentation Requirements</h4>
+                                        <p class="text-gray-700 text-sm">Legal mandates for comprehensive patient care documentation including assessment findings, treatments provided, and patient responses to care.</p>
+                                    </div>
+                                    <div class="border-l-4 border-red-400 pl-4">
+                                        <h4 class="font-semibold text-red-800">Liability and Malpractice</h4>
+                                        <p class="text-gray-700 text-sm">Understanding professional liability, negligence standards, and protection through proper protocols, documentation, and continuing education.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white border rounded-lg">
+                                <div class="bg-yellow-50 px-6 py-4 border-b">
+                                    <h3 class="text-lg font-semibold text-yellow-900">Ethical Principles in EMS Operations</h3>
+                                </div>
+                                <div class="p-6">
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800 mb-3">Core Ethical Principles</h4>
+                                            <ul class="text-gray-700 text-sm space-y-2">
+                                                <li>• <strong>Beneficence:</strong> Acting in the patient's best interest</li>
+                                                <li>• <strong>Non-maleficence:</strong> "Do no harm" principle</li>
+                                                <li>• <strong>Autonomy:</strong> Respecting patient decision-making rights</li>
+                                                <li>• <strong>Justice:</strong> Fair and equitable treatment for all patients</li>
+                                                <li>• <strong>Veracity:</strong> Truthfulness in patient interactions</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800 mb-3">Operational Ethics</h4>
+                                            <ul class="text-gray-700 text-sm space-y-2">
+                                                <li>• <strong>Resource Allocation:</strong> Fair distribution of limited resources</li>
+                                                <li>• <strong>Confidentiality:</strong> Protection of patient health information</li>
+                                                <li>• <strong>Professional Boundaries:</strong> Maintaining appropriate relationships</li>
+                                                <li>• <strong>Cultural Competence:</strong> Respectful care for diverse populations</li>
+                                                <li>• <strong>Advocacy:</strong> Supporting patient needs and rights</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Bottom Navigation -->
+                            <div class="flex justify-between items-center pt-6 border-t border-gray-200">
+                                <button onclick="showSection('management')" class="flex items-center px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors">
+                                    <span class="mr-2">←</span>
+                                    <span>Previous: Operations Management</span>
+                                </button>
+                                <button onclick="showSection('safety')" class="flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
+                                    <span>Next: Safety Culture</span>
+                                    <span class="ml-2">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Safety Section -->
+                    <div id="safety" class="section-content">
+                        <div class="space-y-6">
+                            <h1 class="text-3xl font-bold text-gray-900">Safety Culture and Management Systems</h1>
+                            
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-500">
+                                <h3 class="text-lg font-semibold text-orange-900 mb-3">Importance of Safety Culture</h3>
+                                <p class="text-orange-700 mb-4">
+                                    A strong safety culture in EMS operations is essential for protecting both patients and personnel. It encompasses shared values, 
+                                    beliefs, and practices that prioritize safety in all aspects of emergency medical services delivery.
+                                </p>
+                                <div class="bg-white p-4 rounded border">
+                                    <p class="text-sm text-gray-600 font-medium mb-2">NAEMT Safety Statistics:</p>
+                                    <p class="text-gray-700 text-sm">EMS personnel face significant occupational hazards with injury rates substantially higher than many other professions. Implementing comprehensive safety programs can reduce these incidents by up to 40%.</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-white border rounded-lg">
+                                <div class="bg-gray-50 px-6 py-4 border-b">
+                                    <h3 class="text-lg font-semibold text-gray-900">Major Safety Risk Categories</h3>
+                                </div>
+                                <div class="p-6">
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <div class="space-y-4">
+                                            <div class="border-l-4 border-red-400 pl-4">
+                                                <h4 class="font-semibold text-red-800">Vehicle Operations</h4>
+                                                <p class="text-gray-700 text-sm mb-2">Leading cause of EMS injuries and fatalities</p>
+                                                <ul class="text-gray-700 text-sm space-y-1">
+                                                    <li>• Emergency response driving hazards</li>
+                                                    <li>• Roadside operations and traffic exposure</li>
+                                                    <li>• Patient compartment safety during transport</li>
+                                                    <li>• Vehicle maintenance and inspection protocols</li>
+                                                </ul>
+                                            </div>
+                                            <div class="border-l-4 border-yellow-400 pl-4">
+                                                <h4 class="font-semibold text-yellow-800">Infectious Disease Exposure</h4>
+                                                <p class="text-gray-700 text-sm mb-2">Occupational health risks from patient contact</p>
+                                                <ul class="text-gray-700 text-sm space-y-1">
+                                                    <li>• Bloodborne pathogen prevention</li>
+                                                    <li>• Respiratory disease protection</li>
+                                                    <li>• Personal protective equipment (PPE) protocols</li>
+                                                    <li>• Post-exposure prophylaxis procedures</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="space-y-4">
+                                            <div class="border-l-4 border-blue-400 pl-4">
+                                                <h4 class="font-semibold text-blue-800">Musculoskeletal Injuries</h4>
+                                                <p class="text-gray-700 text-sm mb-2">Physical demands of emergency medical care</p>
+                                                <ul class="text-gray-700 text-sm space-y-1">
+                                                    <li>• Patient lifting and moving techniques</li>
+                                                    <li>• Equipment handling and ergonomics</li>
+                                                    <li>• Back injury prevention programs</li>
+                                                    <li>• Physical fitness and conditioning</li>
+                                                </ul>
+                                            </div>
+                                            <div class="border-l-4 border-green-400 pl-4">
+                                                <h4 class="font-semibold text-green-800">Violence and Security</h4>
+                                                <p class="text-gray-700 text-sm mb-2">Personal safety in hostile environments</p>
+                                                <ul class="text-gray-700 text-sm space-y-1">
+                                                    <li>• Scene safety assessment protocols</li>
+                                                    <li>• Patient and bystander aggression</li>
+                                                    <li>• Domestic violence and crime scenes</li>
+                                                    <li>• Mental health emergency precautions</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white border rounded-lg">
+                                <div class="bg-green-50 px-6 py-4 border-b">
+                                    <h3 class="text-lg font-semibold text-green-900">Safety Management System Components</h3>
+                                </div>
+                                <div class="p-6">
+                                    <div class="grid md:grid-cols-3 gap-4">
+                                        <div class="bg-blue-50 p-4 rounded-lg">
+                                            <h4 class="font-semibold text-blue-800 mb-2">Safety Policies</h4>
+                                            <ul class="text-blue-700 text-sm space-y-1">
+                                                <li>• Written safety procedures</li>
+                                                <li>• Risk assessment protocols</li>
+                                                <li>• Incident reporting systems</li>
+                                                <li>• Safety equipment standards</li>
+                                            </ul>
+                                        </div>
+                                        <div class="bg-purple-50 p-4 rounded-lg">
+                                            <h4 class="font-semibold text-purple-800 mb-2">Training Programs</h4>
+                                            <ul class="text-purple-700 text-sm space-y-1">
+                                                <li>• Initial safety orientation</li>
+                                                <li>• Ongoing safety education</li>
+                                                <li>• Emergency response drills</li>
+                                                <li>• Competency verification</li>
+                                            </ul>
+                                        </div>
+                                        <div class="bg-orange-50 p-4 rounded-lg">
+                                            <h4 class="font-semibold text-orange-800 mb-2">Performance Monitoring</h4>
+                                            <ul class="text-orange-700 text-sm space-y-1">
+                                                <li>• Injury and incident tracking</li>
+                                                <li>• Safety performance metrics</li>
+                                                <li>• Trend analysis and reporting</li>
+                                                <li>• Corrective action planning</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Bottom Navigation -->
+                            <div class="flex justify-between items-center pt-6 border-t border-gray-200">
+                                <button onclick="showSection('legal')" class="flex items-center px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors">
+                                    <span class="mr-2">←</span>
+                                    <span>Previous: Legal Framework</span>
+                                </button>
+                                <button onclick="showSection('incident')" class="flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
+                                    <span>Next: Incident Command</span>
+                                    <span class="ml-2">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Incident Section -->
+                    <div id="incident" class="section-content">
+                        <div class="space-y-6">
+                            <h1 class="text-3xl font-bold text-gray-900">Introduction to Incident Command Principles</h1>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                                <h3 class="text-lg font-semibold text-blue-900 mb-3">The Incident Command System (ICS)</h3>
+                                <p class="text-blue-700 mb-4">
+                                    ICS is a standardized management tool for organizing and coordinating response operations during disasters and emergency responses. 
+                                    The system allows multiple agencies to integrate crisis response efforts with common terminology, efficient resource use, and personnel safety.
+                                </p>
+                                <div class="bg-white p-4 rounded border-l-4 border-green-500">
+                                    <p class="text-sm text-gray-600 font-medium mb-1">Key Benefits:</p>
+                                    <p class="text-gray-700 text-sm">Scalable to any size event, ensures common terminology, promotes efficient resource use, and enhances personnel and patient safety through standardized procedures.</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-white border rounded-lg">
+                                <div class="bg-gray-50 px-6 py-4 border-b">
+                                    <h3 class="text-lg font-semibold text-gray-900">ICS Organizational Structure</h3>
+                                </div>
+                                <div class="p-6">
+                                    <div class="mb-6">
+                                        <div class="bg-blue-100 p-4 rounded-lg text-center mb-4">
+                                            <h4 class="font-bold text-blue-900">Incident Commander</h4>
+                                            <p class="text-blue-700 text-sm">Overall responsibility for incident management</p>
+                                        </div>
+                                        <div class="grid md:grid-cols-4 gap-4">
+                                            <div class="bg-green-100 p-3 rounded-lg text-center">
+                                                <h5 class="font-semibold text-green-800">Operations Section</h5>
+                                                <p class="text-green-700 text-xs">Tactical operations</p>
+                                            </div>
+                                            <div class="bg-yellow-100 p-3 rounded-lg text-center">
+                                                <h5 class="font-semibold text-yellow-800">Planning Section</h5>
+                                                <p class="text-yellow-700 text-xs">Resource tracking</p>
+                                            </div>
+                                            <div class="bg-purple-100 p-3 rounded-lg text-center">
+                                                <h5 class="font-semibold text-purple-800">Logistics Section</h5>
+                                                <p class="text-purple-700 text-xs">Resource support</p>
+                                            </div>
+                                            <div class="bg-red-100 p-3 rounded-lg text-center">
+                                                <h5 class="font-semibold text-red-800">Finance Section</h5>
+                                                <p class="text-red-700 text-xs">Cost tracking</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-orange-50 p-4 rounded-lg">
+                                        <h4 class="font-semibold text-orange-800 mb-3">Medical Branch (Under Operations)</h4>
+                                        <div class="grid md:grid-cols-4 gap-3">
+                                            <div class="bg-white p-3 rounded border text-center">
+                                                <h5 class="font-medium text-gray-800">Triage Unit</h5>
+                                                <p class="text-gray-600 text-xs">Patient sorting</p>
+                                            </div>
+                                            <div class="bg-white p-3 rounded border text-center">
+                                                <h5 class="font-medium text-gray-800">Treatment Unit</h5>
+                                                <p class="text-gray-600 text-xs">Medical care</p>
+                                            </div>
+                                            <div class="bg-white p-3 rounded border text-center">
+                                                <h5 class="font-medium text-gray-800">Transport Unit</h5>
+                                                <p class="text-gray-600 text-xs">Patient evacuation</p>
+                                            </div>
+                                            <div class="bg-white p-3 rounded border text-center">
+                                                <h5 class="font-medium text-gray-800">Morgue Unit</h5>
+                                                <p class="text-gray-600 text-xs">Deceased management</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white border rounded-lg">
+                                <div class="bg-gray-50 px-6 py-4 border-b">
+                                    <h3 class="text-lg font-semibold text-gray-900">ICS Principles for EMS Operations</h3>
+                                </div>
+                                <div class="p-6">
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <div class="space-y-4">
+                                            <div class="border-l-4 border-blue-400 pl-4">
+                                                <h4 class="font-semibold text-blue-800">Unity of Command</h4>
+                                                <p class="text-gray-700 text-sm">Each individual reports to only one supervisor, ensuring clear chain of command and accountability.</p>
+                                            </div>
+                                            <div class="border-l-4 border-green-400 pl-4">
+                                                <h4 class="font-semibold text-green-800">Manageable Span of Control</h4>
+                                                <p class="text-gray-700 text-sm">Supervisors manage between 3-7 subordinates, typically 5, to maintain effective oversight and communication.</p>
+                                            </div>
+                                            <div class="border-l-4 border-yellow-400 pl-4">
+                                                <h4 class="font-semibold text-yellow-800">Common Terminology</h4>
+                                                <p class="text-gray-700 text-sm">Standardized language, organizational titles, and resource descriptions for clear multi-agency communication.</p>
+                                            </div>
+                                        </div>
+                                        <div class="space-y-4">
+                                            <div class="border-l-4 border-purple-400 pl-4">
+                                                <h4 class="font-semibold text-purple-800">Modular Organization</h4>
+                                                <p class="text-gray-700 text-sm">Organizational structure expands and contracts based on incident complexity and resource needs.</p>
+                                            </div>
+                                            <div class="border-l-4 border-red-400 pl-4">
+                                                <h4 class="font-semibold text-red-800">Consolidated Action Plans</h4>
+                                                <p class="text-gray-700 text-sm">Single comprehensive plan documenting incident objectives, strategies, and resource assignments.</p>
+                                            </div>
+                                            <div class="border-l-4 border-orange-400 pl-4">
+                                                <h4 class="font-semibold text-orange-800">Comprehensive Resource Management</h4>
+                                                <p class="text-gray-700 text-sm">Systematic tracking and deployment of personnel, equipment, and facilities throughout the incident.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Bottom Navigation -->
+                            <div class="flex justify-between items-center pt-6 border-t border-gray-200">
+                                <button onclick="showSection('safety')" class="flex items-center px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors">
+                                    <span class="mr-2">←</span>
+                                    <span>Previous: Safety Culture</span>
+                                </button>
+                                <button onclick="showSection('specialized')" class="flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
+                                    <span>Next: Specialized Operations</span>
+                                    <span class="ml-2">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Specialized Section -->
+                    <div id="specialized" class="section-content">
+                        <div class="space-y-6">
+                            <h1 class="text-3xl font-bold text-gray-900">Overview of Specialized Operations Environments</h1>
+                            
+                            <div class="bg-teal-50 p-6 rounded-lg border-l-4 border-teal-500">
+                                <h3 class="text-lg font-semibold text-teal-900 mb-3">Specialized EMS Operations</h3>
+                                <p class="text-teal-700 mb-4">
+                                    Modern EMS systems must be prepared to operate in a variety of specialized environments that require additional training, 
+                                    equipment, and operational protocols beyond standard emergency medical response.
+                                </p>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="bg-white border rounded-lg p-4">
+                                    <div class="bg-red-100 p-3 rounded-lg mb-3 text-center">
+                                        <h4 class="font-semibold text-red-800">Mass Casualty Incidents</h4>
+                                    </div>
+                                    <ul class="text-gray-700 text-sm space-y-1">
+                                        <li>• Multi-patient incidents</li>
+                                        <li>• Natural disasters</li>
+                                        <li>• Transportation accidents</li>
+                                        <li>• Terrorist events</li>
+                                        <li>• Industrial accidents</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white border rounded-lg p-4">
+                                    <div class="bg-blue-100 p-3 rounded-lg mb-3 text-center">
+                                        <h4 class="font-semibold text-blue-800">Tactical EMS</h4>
+                                    </div>
+                                    <ul class="text-gray-700 text-sm space-y-1">
+                                        <li>• Law enforcement support</li>
+                                        <li>• SWAT operations</li>
+                                        <li>• Active shooter incidents</li>
+                                        <li>• Barricaded subjects</li>
+                                        <li>• High-risk warrant service</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white border rounded-lg p-4">
+                                    <div class="bg-green-100 p-3 rounded-lg mb-3 text-center">
+                                        <h4 class="font-semibold text-green-800">Air Medical Operations</h4>
+                                    </div>
+                                    <ul class="text-gray-700 text-sm space-y-1">
+                                        <li>• Helicopter emergency services</li>
+                                        <li>• Fixed-wing transport</li>
+                                        <li>• Flight physiology considerations</li>
+                                        <li>• Landing zone operations</li>
+                                        <li>• Weather limitations</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white border rounded-lg p-4">
+                                    <div class="bg-purple-100 p-3 rounded-lg mb-3 text-center">
+                                        <h4 class="font-semibold text-purple-800">Wilderness EMS</h4>
+                                    </div>
+                                    <ul class="text-gray-700 text-sm space-y-1">
+                                        <li>• Remote area rescue</li>
+                                        <li>• Extended care protocols</li>
+                                        <li>• Environmental medicine</li>
+                                        <li>• Technical rescue integration</li>
+                                        <li>• Resource conservation</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white border rounded-lg p-4">
+                                    <div class="bg-yellow-100 p-3 rounded-lg mb-3 text-center">
+                                        <h4 class="font-semibold text-yellow-800">Hazmat/CBRN</h4>
+                                    </div>
+                                    <ul class="text-gray-700 text-sm space-y-1">
+                                        <li>• Chemical exposure incidents</li>
+                                        <li>• Biological contamination</li>
+                                        <li>• Radiological emergencies</li>
+                                        <li>• Nuclear incidents</li>
+                                        <li>• Decontamination procedures</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white border rounded-lg p-4">
+                                    <div class="bg-orange-100 p-3 rounded-lg mb-3 text-center">
+                                        <h4 class="font-semibold text-orange-800">Water Rescue EMS</h4>
+                                    </div>
+                                    <ul class="text-gray-700 text-sm space-y-1">
+                                        <li>• Maritime rescue operations</li>
+                                        <li>• Swift water rescue</li>
+                                        <li>• Dive rescue support</li>
+                                        <li>• Hypothermia management</li>
+                                        <li>• Marine environment challenges</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="bg-white border rounded-lg">
+                                <div class="bg-gray-50 px-6 py-4 border-b">
+                                    <h3 class="text-lg font-semibold text-gray-900">Operational Considerations for Specialized Environments</h3>
+                                </div>
+                                <div class="p-6">
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800 mb-3">Training Requirements</h4>
+                                            <ul class="text-gray-700 text-sm space-y-2">
+                                                <li>• <strong>Specialized Certification:</strong> Additional training beyond standard EMS education for specific operational environments</li>
+                                                <li>• <strong>Interagency Coordination:</strong> Joint training with law enforcement, fire rescue, and other specialized response teams</li>
+                                                <li>• <strong>Continuous Education:</strong> Regular updates on tactics, equipment, and best practices for specialized operations</li>
+                                                <li>• <strong>Physical Fitness:</strong> Enhanced fitness standards for demanding operational environments</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800 mb-3">Equipment and Resources</h4>
+                                            <ul class="text-gray-700 text-sm space-y-2">
+                                                <li>• <strong>Specialized Medical Equipment:</strong> Advanced monitoring, treatment, and transport devices for specific environments</li>
+                                                <li>• <strong>Personal Protective Equipment:</strong> Environmental protection gear appropriate for operational hazards</li>
+                                                <li>• <strong>Communication Systems:</strong> Enhanced interoperability with multiple agencies and operational frequencies</li>
+                                                <li>• <strong>Transport Capabilities:</strong> Specialized vehicles and aircraft for challenging access and evacuation scenarios</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Bottom Navigation -->
+                            <div class="flex justify-between items-center pt-6 border-t border-gray-200">
+                                <button onclick="showSection('incident')" class="flex items-center px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors">
+                                    <span class="mr-2">←</span>
+                                    <span>Previous: Incident Command</span>
+                                </button>
+                                <button onclick="showSection('activities')" class="flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
+                                    <span>Next: Learning Activities</span>
+                                    <span class="ml-2">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Activities Section -->
+                    <div id="activities" class="section-content">
+                        <div class="space-y-6">
+                            <h1 class="text-3xl font-bold text-gray-900">Learning Activities</h1>
+                            
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="bg-white border rounded-lg">
+                                    <div class="bg-blue-50 px-6 py-4 border-b">
+                                        <h3 class="text-lg font-semibold text-blue-900">Case Study Analysis</h3>
+                                    </div>
+                                    <div class="p-6">
+                                        <h4 class="font-semibold text-gray-800 mb-3">Hampton Roads EMS System Comparison</h4>
+                                        <p class="text-gray-700 text-sm mb-4">
+                                            Compare and contrast EMS systems within the Hampton Roads region of Virginia, analyzing their organizational structures, 
+                                            funding mechanisms, personnel deployment, and performance outcomes across different municipalities.
+                                        </p>
+                                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                                            <h5 class="font-semibold text-gray-800 mb-2">Hampton Roads EMS Systems to Compare:</h5>
+                                            <ul class="text-gray-700 text-sm space-y-1">
+                                                <li>• <strong>Norfolk Fire-Rescue EMS</strong> - Fire department-based system serving 238,000+ residents</li>
+                                                <li>• <strong>Virginia Beach EMS</strong> - Integrated public safety model with specialized units</li>
+                                                <li>• <strong>Chesapeake Fire Department EMS</strong> - Combined fire/EMS serving urban and rural areas</li>
+                                                <li>• <strong>Portsmouth Fire, Rescue & Emergency Services</strong> - Municipal fire-based EMS</li>
+                                                <li>• <strong>Hampton Division of Fire & Rescue</strong> - City-operated EMS system</li>
+                                                <li>• <strong>Newport News Fire Department EMS</strong> - Fire department EMS with shipyard coverage</li>
+                                                <li>• <strong>Suffolk Fire & Rescue</strong> - Large geographic coverage area challenges</li>
+                                            </ul>
+                                        </div>
+                                        <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                                            <h5 class="font-semibold text-blue-800 mb-2">Regional Considerations:</h5>
+                                            <ul class="text-blue-700 text-sm space-y-1">
+                                                <li>• <strong>Military Installations:</strong> Norfolk Naval Base, Langley AFB, Fort Eustis coordination</li>
+                                                <li>• <strong>Maritime Challenges:</strong> Water rescue capabilities, bridge/tunnel incidents</li>
+                                                <li>• <strong>Urban vs. Rural:</strong> Dense Norfolk/Virginia Beach vs. rural Suffolk/Chesapeake areas</li>
+                                                <li>• <strong>Tourism Impact:</strong> Virginia Beach seasonal population surges</li>
+                                                <li>• <strong>Industrial Hazards:</strong> Newport News Shipbuilding, coal terminals, chemical facilities</li>
+                                                <li>• <strong>Transportation Corridors:</strong> I-64, I-264, Monitor-Merrimac Bridge-Tunnel</li>
+                                            </ul>
+                                        </div>
+                                        <div class="bg-green-50 p-4 rounded-lg">
+                                            <h5 class="font-semibold text-green-800 mb-2">Analysis Framework:</h5>
+                                            <ul class="text-green-700 text-sm space-y-1">
+                                                <li>• Compare response times across different population densities</li>
+                                                <li>• Analyze mutual aid agreements between Hampton Roads cities</li>
+                                                <li>• Examine specialized capabilities (water rescue, hazmat, tactical)</li>
+                                                <li>• Review funding models: municipal vs. regional approaches</li>
+                                                <li>• Evaluate personnel training and certification standards</li>
+                                                <li>• Assess technology integration and communication interoperability</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white border rounded-lg">
+                                    <div class="bg-purple-50 px-6 py-4 border-b">
+                                        <h3 class="text-lg font-semibold text-purple-900">Interactive Discussion</h3>
+                                    </div>
+                                    <div class="p-6">
+                                        <h4 class="font-semibold text-gray-800 mb-3">Current Challenges in EMS Operations</h4>
+                                        <p class="text-gray-700 text-sm mb-4">
+                                            Participate in guided discussions about contemporary challenges facing EMS operations and potential solutions.
+                                        </p>
+                                        <div class="bg-gray-50 p-4 rounded-lg">
+                                            <h5 class="font-semibold text-gray-800 mb-2">Discussion Topics:</h5>
+                                            <ul class="text-gray-700 text-sm space-y-1">
+                                                <li>• Personnel shortages and retention</li>
+                                                <li>• Mental health integration</li>
+                                                <li>• Technology adoption barriers</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bottom Navigation -->
+                            <div class="flex justify-between items-center pt-6 border-t border-gray-200">
+                                <button onclick="showSection('specialized')" class="flex items-center px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors">
+                                    <span class="mr-2">←</span>
+                                    <span>Previous: Specialized Operations</span>
+                                </button>
+                                <button onclick="showSection('assessment')" class="flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
+                                    <span>Next: Assessment</span>
+                                    <span class="ml-2">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Assessment Section -->
+                    <div id="assessment" class="section-content">
+                        <div class="space-y-6">
+                            <h1 class="text-3xl font-bold text-gray-900">Module Assessment</h1>
+                            
+                            <!-- Quiz -->
+                            <div class="bg-white border rounded-lg">
+                                <div class="bg-green-50 px-6 py-4 border-b">
+                                    <h3 class="text-lg font-semibold text-green-900">Module Quiz (25 Questions)</h3>
+                                </div>
+                                <div class="p-6">
+                                    <div id="quiz-container">
+                                        <div class="quiz-question active" data-question="0">
+                                            <div class="bg-blue-50 p-6 rounded-lg">
+                                                <h4 class="font-semibold text-blue-900 mb-4" id="question-text">
+                                                    Loading question...
+                                                </h4>
+                                                <div class="space-y-3" id="question-options">
+                                                    <!-- Options will be loaded dynamically -->
+                                                </div>
+                                                <div id="question-explanation" class="mt-4 p-4 bg-white border rounded hidden">
+                                                    <p class="text-sm text-gray-600 font-medium mb-2">Explanation:</p>
+                                                    <p class="text-gray-700 text-sm" id="explanation-text"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="quiz-navigation" class="flex justify-between items-center mt-6">
+                                        <button id="prev-btn" onclick="previousQuestion()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded disabled:opacity-50" disabled>
+                                            Previous
+                                        </button>
+                                        <div class="text-sm text-gray-600">
+                                            Question <span id="current-q">1</span> of <span id="total-q">25</span>
+                                        </div>
+                                        <button id="next-btn" onclick="nextQuestion()" class="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50" disabled>
+                                            Next
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Reflection Paper -->
+                            <div class="bg-white border rounded-lg">
+                                <div class="bg-purple-50 px-6 py-4 border-b">
+                                    <h3 class="text-lg font-semibold text-purple-900">Reflection Paper: "The Role of Operations in EMS Excellence"</h3>
+                                </div>
+                                <div class="p-6">
+                                    <div class="bg-purple-100 p-4 rounded-lg mb-4">
+                                        <h4 class="font-semibold text-purple-800 mb-2">Assignment Requirements:</h4>
+                                        <ul class="text-purple-700 text-sm space-y-1">
+                                            <li>• Minimum 500 words</li>
+                                            <li>• APA format with citations</li>
+                                            <li>• Personal reflection on learning objectives</li>
+                                            <li>• Integration of course materials and real-world examples</li>
+                                            <li>• Critical analysis of EMS operations management</li>
+                                        </ul>
+                                    </div>
+
+                                    <textarea 
+                                        id="reflection-text"
+                                        class="w-full h-40 p-4 border rounded-lg resize-y"
+                                        placeholder="Begin writing your reflection paper here... (500 words minimum)"
+                                        oninput="updateWordCount()"
+                                    ></textarea>
+
+                                    <div class="flex justify-between items-center mt-4">
+                                        <span class="text-sm text-gray-600">
+                                            Word count: <span id="word-count">0</span>/500
+                                        </span>
+                                        <div class="flex space-x-3">
+                                            <button id="download-reflection" onclick="downloadReflection()" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50" disabled>
+                                                Download Paper
+                                            </button>
+                                            <button id="submit-reflection" class="px-6 py-2 bg-purple-600 text-white rounded disabled:opacity-50" disabled>
+                                                Submit Reflection
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Module Completion Requirements -->
+                            <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border-l-4 border-green-500 mt-8">
+                                <h3 class="text-lg font-semibold text-green-900 mb-4">Module Completion Requirements</h3>
+                                <div class="grid md:grid-cols-2 gap-4 mb-6">
+                                    <div class="bg-white p-4 rounded-lg border">
+                                        <div class="flex items-center mb-2">
+                                            <span id="quiz-status" class="text-2xl mr-3">❌</span>
+                                            <h4 class="font-semibold text-gray-800">Final Quiz</h4>
+                                        </div>
+                                        <p class="text-gray-600 text-sm mb-2">Complete 25-question assessment with 80% or higher</p>
+                                        <p id="quiz-score" class="text-sm font-medium text-gray-500">Not completed</p>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-lg border">
+                                        <div class="flex items-center mb-2">
+                                            <span id="reflection-status" class="text-2xl mr-3">❌</span>
+                                            <h4 class="font-semibold text-gray-800">Reflection Paper</h4>
+                                        </div>
+                                        <p class="text-gray-600 text-sm mb-2">Submit 500+ word reflection paper</p>
+                                        <p id="reflection-word-status" class="text-sm font-medium text-gray-500">Not completed</p>
+                                    </div>
+                                </div>
+                                
+                                <button id="mark-module-complete" onclick="markModuleComplete()" 
+                                    class="w-full py-4 px-6 bg-gray-400 text-white rounded-lg font-bold text-lg cursor-not-allowed mb-4">
+                                    Mark Module Complete
+                                </button>
+                                
+                                <div id="completion-message" class="text-center hidden">
+                                    <div class="bg-white p-4 rounded-lg border border-green-500">
+                                        <h4 class="text-green-800 font-bold mb-2">Congratulations!</h4>
+                                        <p class="text-green-700 mb-1">You have successfully completed Module 1: Introduction to EMS Operations!</p>
+                                        <p class="text-green-600 text-sm">All learning objectives have been met and assessments passed.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Bottom Navigation -->
+                            <div class="flex justify-between items-center pt-6 border-t border-gray-200">
+                                <button onclick="showSection('activities')" class="flex items-center px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors">
+                                    <span class="mr-2">←</span>
+                                    <span>Previous: Learning Activities</span>
+                                </button>
+                                <button onclick="showSection('overview')" class="flex items-center px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors">
+                                    <span>Return to Module Overview</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State management
+        let completedSections = new Set();
+        let currentQuizQuestion = 0;
+        let quizAnswers = {};
+        let quizCompleted = false;
+        let quizPassed = false;
+        let reflectionCompleted = false;
+        const totalSections = 10;
+        const totalQuestions = 25;
+
+        // Comprehensive 25-question quiz data
+        const quizData = {
+            0: { 
+                correct: 1, 
+                explanation: "A comprehensive EMS system includes agencies and organizations, life-saving data, communication and transportation networks, centers and facilities, and highly trained personnel." 
+            },
+            1: { 
+                correct: 2, 
+                explanation: "EMS Agenda 2050 envisions a people-centered EMS system that is integrated with the healthcare system, proactive in providing community health, and adequately funded and accessible." 
+            },
+            2: {
+                correct: 2,
+                explanation: "The Highway Safety Act of 1966 established the Department of Transportation and provided the first federal involvement in EMS standards and development."
+            },
+            3: {
+                correct: 1,
+                explanation: "The correct progression from basic to advanced is: EMR (Emergency Medical Responder), EMT, AEMT, Paramedic."
+            },
+            4: {
+                correct: 0,
+                explanation: "Homeland Security Presidential Directive-5 (HSPD-5) signed in 2003 established the National Incident Management System (NIMS)."
+            },
+            5: {
+                correct: 3,
+                explanation: "System Status Management involves dynamic deployment of EMS resources based on anticipated call volume and location patterns."
+            },
+            6: {
+                correct: 1,
+                explanation: "Online medical direction provides real-time physician guidance during emergency calls, while offline direction consists of written protocols."
+            },
+            7: {
+                correct: 1,
+                explanation: "State EMS offices are primarily responsible for determining scope of practice and regulating personnel licensure and certification."
+            },
+            8: {
+                correct: 0,
+                explanation: "Vehicle operations represent the highest risk category for EMS personnel injuries and fatalities."
+            },
+            9: {
+                correct: 3,
+                explanation: "NAEMT's EMS Safety course is the only national, comprehensive safety training program specifically designed for EMS personnel."
+            },
+            10: {
+                correct: 1,
+                explanation: "The Incident Commander has overall responsibility for managing the incident and coordinating all response activities."
+            },
+            11: {
+                correct: 2,
+                explanation: "The Medical Branch operates under the Operations Section of the ICS organizational structure."
+            },
+            12: {
+                correct: 0,
+                explanation: "Triage, Treatment, Transport, and Morgue are the four main sections within the Medical Branch of ICS."
+            },
+            13: {
+                correct: 3,
+                explanation: "Mass casualty incidents require additional training, specialized equipment, and coordination protocols beyond standard EMS response."
+            },
+            14: {
+                correct: 1,
+                explanation: "Tactical EMS provides medical support during high-risk law enforcement operations including SWAT and active shooter responses."
+            },
+            15: {
+                correct: 2,
+                explanation: "The 1973 EMS Systems Act identified 15 essential elements that should be included in comprehensive EMS systems."
+            },
+            16: {
+                correct: 0,
+                explanation: "NHTSA (National Highway Traffic Safety Administration) is the primary federal agency responsible for EMS oversight and standards."
+            },
+            17: {
+                correct: 3,
+                explanation: "Community Paramedicine (CP) and Mobile Integrated Healthcare (MIH) expand EMS services beyond emergency response to include preventive care."
+            },
+            18: {
+                correct: 1,
+                explanation: "FIRESCOPE was the collaborative task force that developed the modern Incident Command System in response to California wildfire challenges."
+            },
+            19: {
+                correct: 2,
+                explanation: "Quality improvement programs use continuous data collection and analysis to enhance system performance and patient outcomes."
+            },
+            20: {
+                correct: 0,
+                explanation: "HIPAA (Health Insurance Portability and Accountability Act) establishes privacy and security standards for protected health information in EMS."
+            },
+            21: {
+                correct: 3,
+                explanation: "Air medical services provide rapid transport and advanced care capabilities but are limited by weather conditions and operational constraints."
+            },
+            22: {
+                correct: 1,
+                explanation: "Mutual aid agreements between Hampton Roads jurisdictions ensure coordinated response and resource sharing during major incidents."
+            },
+            23: {
+                correct: 2,
+                explanation: "Evidence-based protocols are developed from research and clinical evidence to standardize and improve patient care quality."
+            },
+            24: {
+                correct: 0,
+                explanation: "Regular training, competency assessment, and continuing education are essential for maintaining high-quality EMS operations and personnel performance."
+            }
+        };
+
+        // All 25 quiz questions
+        const quizQuestions = [
+            {
+                question: "What are the essential components of a comprehensive EMS system according to current standards?",
+                options: [
+                    "Only ambulances and EMTs",
+                    "Agencies, data, communications, transportation, facilities, and personnel",
+                    "Hospitals and dispatch centers",
+                    "Fire departments and police"
+                ]
+            },
+            {
+                question: "According to EMS Agenda 2050, what is the vision for modern EMS systems?",
+                options: [
+                    "Transport-focused service",
+                    "Hospital-based care only",
+                    "People-centered EMS system integrated with healthcare",
+                    "Fire department-based service"
+                ]
+            },
+            {
+                question: "Which federal legislation first established national standards for EMS systems?",
+                options: [
+                    "EMS Systems Act of 1973",
+                    "Public Health Service Act",
+                    "Highway Safety Act of 1966",
+                    "Homeland Security Act of 2002"
+                ]
+            },
+            {
+                question: "What is the correct progression of EMS personnel levels from basic to advanced?",
+                options: [
+                    "EMT, EMR, AEMT, Paramedic",
+                    "EMR, EMT, AEMT, Paramedic",
+                    "Paramedic, AEMT, EMT, EMR",
+                    "EMT, Paramedic, AEMT, EMR"
+                ]
+            },
+            {
+                question: "What established the National Incident Management System (NIMS)?",
+                options: [
+                    "Homeland Security Presidential Directive-5 (HSPD-5)",
+                    "Highway Safety Act of 1966",
+                    "EMS Systems Act of 1973",
+                    "Robert T. Stafford Act"
+                ]
+            },
+            {
+                question: "What is System Status Management in EMS operations?",
+                options: [
+                    "Fixed ambulance station locations",
+                    "Hospital-based deployment",
+                    "Random patrol patterns",
+                    "Dynamic resource deployment based on call patterns"
+                ]
+            },
+            {
+                question: "What distinguishes online medical direction from offline medical direction?",
+                options: [
+                    "Online uses computer systems, offline uses radio",
+                    "Online provides real-time physician guidance, offline uses written protocols",
+                    "Online is for paramedics, offline is for EMTs",
+                    "Online is federal, offline is state-level"
+                ]
+            },
+            {
+                question: "Which level of government primarily determines EMS scope of practice?",
+                options: [
+                    "Federal government through NHTSA",
+                    "State EMS offices",
+                    "Local medical directors",
+                    "Hospital systems"
+                ]
+            },
+            {
+                question: "What represents the highest risk category for EMS personnel safety?",
+                options: [
+                    "Vehicle operations and roadside safety",
+                    "Infectious disease exposure",
+                    "Patient violence",
+                    "Equipment failures"
+                ]
+            },
+            {
+                question: "Which organization provides the national comprehensive safety course for EMS personnel?",
+                options: [
+                    "NREMT",
+                    "NHTSA",
+                    "FEMA",
+                    "NAEMT"
+                ]
+            },
+            {
+                question: "In the Incident Command System, who has overall responsibility for incident management?",
+                options: [
+                    "Operations Chief",
+                    "Incident Commander",
+                    "Safety Officer",
+                    "Medical Director"
+                ]
+            },
+            {
+                question: "Under which ICS section does the Medical Branch operate?",
+                options: [
+                    "Planning Section",
+                    "Logistics Section",
+                    "Operations Section",
+                    "Finance Section"
+                ]
+            },
+            {
+                question: "What are the four main sections of the Medical Branch in ICS?",
+                options: [
+                    "Triage, Treatment, Transport, Morgue",
+                    "Assessment, Intervention, Transport, Documentation",
+                    "Primary, Secondary, Tertiary, Rehabilitation",
+                    "Immediate, Delayed, Minor, Deceased"
+                ]
+            },
+            {
+                question: "What characterizes specialized EMS operations?",
+                options: [
+                    "Standard equipment and protocols",
+                    "Basic EMT-level care only",
+                    "Single-agency response",
+                    "Additional training, equipment, and specialized protocols"
+                ]
+            },
+            {
+                question: "What is the primary role of Tactical EMS?",
+                options: [
+                    "Wilderness rescue operations",
+                    "Medical support during high-risk law enforcement operations",
+                    "Hospital security services",
+                    "Emergency department operations"
+                ]
+            },
+            {
+                question: "How many essential elements were identified in the 1973 EMS Systems Act?",
+                options: [
+                    "10 elements",
+                    "12 elements",
+                    "15 elements",
+                    "20 elements"
+                ]
+            },
+            {
+                question: "Which federal agency has primary responsibility for EMS oversight?",
+                options: [
+                    "NHTSA (National Highway Traffic Safety Administration)",
+                    "CDC (Centers for Disease Control)",
+                    "FEMA (Federal Emergency Management Agency)",
+                    "HHS (Health and Human Services)"
+                ]
+            },
+            {
+                question: "What do Community Paramedicine (CP) and Mobile Integrated Healthcare (MIH) represent?",
+                options: [
+                    "Traditional emergency response only",
+                    "Hospital-based services",
+                    "Fire department integration",
+                    "Expansion of EMS into preventive and community healthcare"
+                ]
+            },
+            {
+                question: "What was FIRESCOPE and its significance to EMS?",
+                options: [
+                    "A federal EMS oversight agency",
+                    "The collaborative task force that developed modern ICS",
+                    "An EMS training organization",
+                    "A medical equipment manufacturer"
+                ]
+            },
+            {
+                question: "What is the primary purpose of quality improvement programs in EMS?",
+                options: [
+                    "Cost reduction only",
+                    "Personnel discipline",
+                    "Continuous enhancement of system performance and patient outcomes",
+                    "Regulatory compliance only"
+                ]
+            },
+            {
+                question: "Which regulation establishes privacy standards for EMS patient information?",
+                options: [
+                    "HIPAA (Health Insurance Portability and Accountability Act)",
+                    "EMTALA (Emergency Medical Treatment and Labor Act)",
+                    "OSHA (Occupational Safety and Health Act)",
+                    "ADA (Americans with Disabilities Act)"
+                ]
+            },
+            {
+                question: "What are the primary advantages and limitations of air medical services?",
+                options: [
+                    "Unlimited availability with no restrictions",
+                    "Ground transport only with air backup",
+                    "Hospital-based services exclusively",
+                    "Rapid transport and advanced care but limited by weather and operational constraints"
+                ]
+            },
+            {
+                question: "Why are mutual aid agreements important in the Hampton Roads region?",
+                options: [
+                    "They reduce individual agency costs",
+                    "They ensure coordinated response and resource sharing during major incidents",
+                    "They eliminate the need for individual agency training",
+                    "They standardize all equipment across agencies"
+                ]
+            },
+            {
+                question: "What is the foundation for developing EMS treatment protocols?",
+                options: [
+                    "Individual physician preferences",
+                    "Hospital emergency department procedures",
+                    "Evidence-based research and clinical guidelines",
+                    "Insurance company requirements"
+                ]
+            },
+            {
+                question: "What elements are essential for maintaining high-quality EMS operations?",
+                options: [
+                    "Regular training, competency assessment, and continuing education",
+                    "Equipment replacement schedules only",
+                    "Increased staffing levels only",
+                    "Higher compensation packages"
+                ]
+            }
+        ];
+
+        // Show section
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
+        }
+
+        // Update completion requirements status
+        function updateCompletionStatus() {
+            // Update quiz status
+            const quizStatusIcon = document.getElementById('quiz-status');
+            const quizScore = document.getElementById('quiz-score');
+            
+            if (quizCompleted && quizPassed) {
+                quizStatusIcon.textContent = '✅';
+                const results = calculateQuizScore();
+                quizScore.textContent = `Completed: ${results.percentage}% (PASSED)`;
+                quizScore.className = 'text-sm font-medium text-green-600';
+            } else if (quizCompleted) {
+                quizStatusIcon.textContent = '⚠️';
+                const results = calculateQuizScore();
+                quizScore.textContent = `Completed: ${results.percentage}% (NEED 80%+)`;
+                quizScore.className = 'text-sm font-medium text-red-600';
+            }
+            
+            // Update reflection status
+            const reflectionStatusIcon = document.getElementById('reflection-status');
+            const reflectionWordStatus = document.getElementById('reflection-word-status');
+            
+            if (reflectionCompleted) {
+                reflectionStatusIcon.textContent = '✅';
+                reflectionWordStatus.textContent = 'Completed: 500+ words submitted';
+                reflectionWordStatus.className = 'text-sm font-medium text-green-600';
+            }
+            
+            // Update module complete button
+            const moduleCompleteBtn = document.getElementById('mark-module-complete');
+            if (quizCompleted && quizPassed && reflectionCompleted) {
+                moduleCompleteBtn.disabled = false;
+                moduleCompleteBtn.className = 'w-full py-4 px-6 bg-green-600 text-white rounded-lg font-bold text-lg hover:bg-green-700 cursor-pointer transition-colors';
+            }
+        }
+
+        // Mark module complete
+        function markModuleComplete() {
+            if (quizCompleted && quizPassed && reflectionCompleted) {
+                const completionMessage = document.getElementById('completion-message');
+                completionMessage.classList.remove('hidden');
+                
+                const moduleCompleteBtn = document.getElementById('mark-module-complete');
+                moduleCompleteBtn.textContent = '✅ Module Completed Successfully!';
+                moduleCompleteBtn.disabled = true;
+                moduleCompleteBtn.className = 'w-full py-4 px-6 bg-green-500 text-white rounded-lg font-bold text-lg cursor-not-allowed';
+                
+                // Update progress to 100%
+                document.getElementById('progress-bar').style.width = '100%';
+                document.getElementById('progress-text').textContent = 'Module completed successfully!';
+                
+                alert('🎉 Congratulations! You have successfully completed Module 1: Introduction to EMS Operations!');
+            }
+        }
+
+        // Load current question
+        function loadQuestion(questionIndex) {
+            const question = quizQuestions[questionIndex];
+            if (!question) return;
+
+            document.getElementById('question-text').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('question-options');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const label = document.createElement('label');
+                label.className = 'flex items-center space-x-3 cursor-pointer';
+                label.innerHTML = `
+                    <input type="radio" name="q${questionIndex}" value="${index}" class="text-blue-600">
+                    <span class="text-gray-700">${option}</span>
+                `;
+                optionsContainer.appendChild(label);
+            });
+
+            // Show explanation if answer was selected
+            const selectedAnswer = quizAnswers[questionIndex];
+            const explanationDiv = document.getElementById('question-explanation');
+            if (selectedAnswer !== undefined) {
+                document.getElementById('explanation-text').textContent = quizData[questionIndex].explanation;
+                explanationDiv.classList.remove('hidden');
+                
+                // Check the previously selected answer
+                const radioButton = document.querySelector(`input[name="q${questionIndex}"][value="${selectedAnswer}"]`);
+                if (radioButton) radioButton.checked = true;
+            } else {
+                explanationDiv.classList.add('hidden');
+            }
+        }
+
+        // Quiz navigation
+        function nextQuestion() {
+            if (currentQuizQuestion < totalQuestions - 1) {
+                currentQuizQuestion++;
+                loadQuestion(currentQuizQuestion);
+                document.getElementById('current-q').textContent = currentQuizQuestion + 1;
+                
+                // Update buttons
+                document.getElementById('prev-btn').disabled = false;
+                const hasAnswer = quizAnswers.hasOwnProperty(currentQuizQuestion);
+                document.getElementById('next-btn').disabled = !hasAnswer;
+                
+                if (currentQuizQuestion === totalQuestions - 1) {
+                    document.getElementById('next-btn').textContent = 'Complete Quiz';
+                }
+            } else {
+                showQuizResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuizQuestion > 0) {
+                currentQuizQuestion--;
+                loadQuestion(currentQuizQuestion);
+                document.getElementById('current-q').textContent = currentQuizQuestion + 1;
+                
+                // Update buttons
+                document.getElementById('next-btn').textContent = 'Next';
+                if (currentQuizQuestion === 0) {
+                    document.getElementById('prev-btn').disabled = true;
+                }
+                // Check if current question has an answer
+                const hasAnswer = quizAnswers.hasOwnProperty(currentQuizQuestion);
+                document.getElementById('next-btn').disabled = !hasAnswer;
+            }
+        }
+
+        // Handle quiz answers
+        function handleQuizAnswer(questionIndex, answer) {
+            quizAnswers[questionIndex] = parseInt(answer);
+            document.getElementById('next-btn').disabled = false;
+            
+            // Show explanation
+            const explanationDiv = document.getElementById('question-explanation');
+            document.getElementById('explanation-text').textContent = quizData[questionIndex].explanation;
+            explanationDiv.classList.remove('hidden');
+        }
+
+        // Calculate quiz score
+        function calculateQuizScore() {
+            let correct = 0;
+            Object.keys(quizAnswers).forEach(questionIndex => {
+                if (quizAnswers[questionIndex] === quizData[questionIndex].correct) {
+                    correct++;
+                }
+            });
+            return {
+                correct: correct,
+                total: Object.keys(quizData).length,
+                percentage: Math.round((correct / Object.keys(quizData).length) * 100)
+            };
+        }
+
+        // Show quiz results
+        function showQuizResults() {
+            const results = calculateQuizScore();
+            const container = document.getElementById('quiz-container');
+            
+            // Mark quiz as completed
+            quizCompleted = true;
+            quizPassed = results.percentage >= 80;
+            updateCompletionStatus();
+            
+            container.innerHTML = `
+                <div class="text-center space-y-6">
+                    <div class="text-4xl font-bold ${results.percentage >= 80 ? 'text-green-600' : 'text-red-600'} mb-2">
+                        ${results.percentage}%
+                    </div>
+                    <p class="text-gray-700">
+                        You scored ${results.correct} out of ${results.total} questions correctly
+                    </p>
+                    
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-green-50 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-green-600 mb-1">${results.correct}</div>
+                            <p class="text-green-700 text-sm">Correct Answers</p>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-red-600 mb-1">${results.total - results.correct}</div>
+                            <p class="text-red-700 text-sm">Incorrect Answers</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-blue-600 mb-1">
+                                ${results.percentage >= 80 ? 'PASS' : 'RETAKE'}
+                            </div>
+                            <p class="text-blue-700 text-sm">Status</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-gray-700 text-sm text-center">
+                            ${results.percentage >= 80 
+                                ? 'Congratulations! You have successfully completed the module quiz with a passing score.' 
+                                : 'You need a score of 80% or higher to pass. Please review the material and retake the quiz.'}
+                        </p>
+                    </div>
+                    
+                    <div class="flex justify-center space-x-4">
+                        <button onclick="downloadQuizResults()" class="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+                            Download Results
+                        </button>
+                        <button onclick="retakeQuiz()" class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                            Retake Quiz
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Hide navigation buttons
+            document.getElementById('quiz-navigation').style.display = 'none';
+        }
+
+        // Retake quiz
+        function retakeQuiz() {
+            currentQuizQuestion = 0;
+            quizAnswers = {};
+            quizCompleted = false;
+            quizPassed = false;
+            updateCompletionStatus();
+            
+            // Reset quiz
+            location.reload(); // Simple way to reset everything
+        }
+
+        // Word count for reflection
+        function updateWordCount() {
+            const text = document.getElementById('reflection-text').value;
+            const wordCount = text.trim().split(/\s+/).filter(word => word.length > 0).length;
+            document.getElementById('word-count').textContent = wordCount;
+            
+            const submitBtn = document.getElementById('submit-reflection');
+            const downloadBtn = document.getElementById('download-reflection');
+            submitBtn.disabled = wordCount < 500;
+            downloadBtn.disabled = wordCount < 50; // Allow download with some content
+        }
+
+        // Download reflection paper
+        function downloadReflection() {
+            const text = document.getElementById('reflection-text').value;
+            const studentName = prompt('Enter your name for the reflection paper:') || 'Student';
+            const date = new Date().toLocaleDateString();
+            
+            const content = `
+Module 1: Introduction to EMS Operations
+Reflection Paper: "The Role of Operations in EMS Excellence"
+
+Student: ${studentName}
+Date: ${date}
+Word Count: ${text.trim().split(/\s+/).filter(word => word.length > 0).length}
+
+Assignment Requirements:
+• Minimum 500 words
+• APA format with citations
+• Personal reflection on learning objectives
+• Integration of course materials and real-world examples
+• Critical analysis of EMS operations management
+
+Reflection Paper:
+
+${text}
+
+---
+This reflection paper was completed as part of Module 1: Introduction to EMS Operations.
+Course objectives addressed:
+1. Define the scope and complexity of modern EMS operations
+2. Identify the key components of an integrated EMS system
+3. Explain the role of operations management in emergency medical services
+4. Describe the regulatory and legal framework governing EMS operations
+5. Understand the importance of safety culture in EMS operations
+            `;
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `EMS_Operations_Reflection_${studentName.replace(/\s+/g, '_')}_${date.replace(/\//g, '-')}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Download quiz results
+        function downloadQuizResults() {
+            const results = calculateQuizScore();
+            const studentName = prompt('Enter your name for the quiz results:') || 'Student';
+            const date = new Date().toLocaleDateString();
+            const time = new Date().toLocaleTimeString();
+            
+            let detailedResults = '';
+            for (let i = 0; i < totalQuestions; i++) {
+                const question = quizQuestions[i];
+                const userAnswer = quizAnswers[i];
+                const correctAnswer = quizData[i].correct;
+                const isCorrect = userAnswer === correctAnswer;
+                
+                detailedResults += `
+Question ${i + 1}: ${question.question}
+Your Answer: ${userAnswer !== undefined ? question.options[userAnswer] : 'Not Answered'}
+Correct Answer: ${question.options[correctAnswer]}
+Result: ${isCorrect ? '✓ Correct' : '✗ Incorrect'}
+Explanation: ${quizData[i].explanation}
+
+---
+                `;
+            }
+            
+            const content = `
+Module 1: Introduction to EMS Operations - Final Assessment Results
+
+Student: ${studentName}
+Date: ${date}
+Time: ${time}
+
+QUIZ SUMMARY:
+Total Questions: ${results.total}
+Correct Answers: ${results.correct}
+Incorrect Answers: ${results.total - results.correct}
+Final Score: ${results.percentage}%
+Status: ${results.percentage >= 80 ? 'PASS' : 'FAIL'}
+
+Passing Score Required: 80%
+${results.percentage >= 80 ? 'Congratulations! You have successfully completed the module assessment.' : 'Please review the material and retake the quiz to achieve a passing score.'}
+
+DETAILED RESULTS:
+${detailedResults}
+
+LEARNING OBJECTIVES ASSESSED:
+1. Define the scope and complexity of modern EMS operations
+2. Identify the key components of an integrated EMS system
+3. Explain the role of operations management in emergency medical services
+4. Describe the regulatory and legal framework governing EMS operations
+5. Understand the importance of safety culture in EMS operations
+6. Introduction to incident command principles
+7. Overview of specialized operations environments
+
+This assessment covers key concepts from:
+- Evolution of EMS systems and operations
+- System components: personnel, equipment, communications, facilities
+- Quality improvement and performance measurement
+- Legal and ethical considerations in operations
+- Safety management systems
+- Introduction to incident command principles
+- Overview of specialized operations environments
+            `;
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `EMS_Operations_Quiz_Results_${studentName.replace(/\s+/g, '_')}_${date.replace(/\//g, '-')}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show first section by default
+            showSection('overview');
+            
+            // Load first quiz question
+            loadQuestion(0);
+            
+            // Initialize completion status
+            updateCompletionStatus();
+            
+            // Add event listeners for quiz radio buttons (delegated)
+            document.addEventListener('change', function(e) {
+                if (e.target.type === 'radio' && e.target.name.startsWith('q')) {
+                    const questionIndex = parseInt(e.target.name.replace('q', ''));
+                    const answer = parseInt(e.target.value);
+                    handleQuizAnswer(questionIndex, answer);
+                }
+            });
+            
+            // Add submit handler for reflection
+            document.getElementById('submit-reflection').addEventListener('click', function() {
+                const text = document.getElementById('reflection-text').value;
+                const wordCount = text.trim().split(/\s+/).filter(word => word.length > 0).length;
+                
+                if (wordCount >= 500) {
+                    reflectionCompleted = true;
+                    updateCompletionStatus();
+                    alert('✅ Reflection paper submitted successfully! You can now complete the module once you pass the quiz.');
+                    
+                    // Disable the textarea and button
+                    document.getElementById('reflection-text').disabled = true;
+                    document.getElementById('submit-reflection').textContent = '✅ Submitted';
+                    document.getElementById('submit-reflection').disabled = true;
+                } else {
+                    alert('Please write at least 500 words before submitting.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
